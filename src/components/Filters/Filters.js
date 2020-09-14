@@ -1,5 +1,6 @@
 import React from 'react'
 import SortBy from './SortBy'
+import Pagination from './Pagination'
 
 class Filters extends React.Component {
   render() {
@@ -8,29 +9,23 @@ class Filters extends React.Component {
       onChangeFilters,
       page,
       onChangePage,
+      total_pages,
     } = this.props
 
     return (
       <>
         <form className="mb-3">
-          <SortBy sort_by={sort_by} onChangeFilters={onChangeFilters} />
-          <div className="form-group">
-            <button
-              type="button"
-              className="btn btn-light"
-              onClick={onChangePage.bind(null, page - 1)}
-              disabled={page === 1}
-            >
-              Назад
-            </button>
-            <button
-              type="button"
-              className="btn btn-light"
-              onClick={onChangePage.bind(null, page + 1)}
-            >
-              Вперед
-            </button>
+          <div className="sort form-group">
+            <label className="filters-name" htmlFor="sort_by">
+              Сортировать
+            </label>
+            <SortBy sort_by={sort_by} onChangeFilters={onChangeFilters} />
           </div>
+          <Pagination
+            total_pages={total_pages}
+            onChangePage={onChangePage}
+            page={page}
+          />
         </form>
       </>
     )

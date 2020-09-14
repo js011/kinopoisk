@@ -32,10 +32,6 @@ export default class SortBy extends React.PureComponent {
     const { sort_by, onChangeFilters, sortByOptions } = this.props
 
     return (
-      <div className="sort form-group">
-        <label className="filters-name" htmlFor="sort_by">
-          Сортировать
-        </label>
         <select
           className="form-control"
           name="sort_by"
@@ -49,7 +45,6 @@ export default class SortBy extends React.PureComponent {
             </option>
           ))}
         </select>
-      </div>
     )
   }
 }

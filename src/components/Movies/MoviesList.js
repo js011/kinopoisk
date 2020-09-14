@@ -32,11 +32,15 @@ class MoviesList extends React.Component {
 
   getMovies = (filters, page) => {
     const { sort_by } = filters
+    const { onChangeTotalPages } = this.props
 
     const link = `${api_url}/discover/movie?api_key=${api_key_movieDB_v3}&language=ru-RU&sort_by=${sort_by}&page=${page}`
     return fetch(link)
       .then((response) => response.json())
-      .then((data) => this.setState({ movies: data.results }))
+      .then((data) => {
+        onChangeTotalPages(data.total_pages)
+        this.setState({ movies: data.results })
+      })
   }
 
   render() {

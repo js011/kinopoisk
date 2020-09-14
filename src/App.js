@@ -13,6 +13,7 @@ class App extends Component {
         sort_by: 'popularity.desc',
       },
       page: 1,
+      total_pages: '',
     }
   }
 
@@ -33,7 +34,14 @@ class App extends Component {
     })
   }
 
+  onChangeTotalPages = (total_pages) => {
+    this.setState({
+      total_pages,
+    })
+  }
+
   render() {
+    const { filters, page, total_pages } = this.state
     return (
       <>
         <div className="header">
@@ -44,16 +52,18 @@ class App extends Component {
             <div className="filters col-3">
               <Filters
                 onChangeFilters={this.onChangeFilters}
-                filters={this.state.filters}
-                page={this.state.page}
+                filters={filters}
+                page={page}
                 onChangePage={this.onChangePage}
+                total_pages={total_pages}
               />
             </div>
             <div className="movies col-9">
               <MoviesList
-                filters={this.state.filters}
-                page={this.state.page}
+                filters={filters}
+                page={page}
                 onChangePage={this.onChangePage}
+                onChangeTotalPages={this.onChangeTotalPages}
               />
             </div>
           </div>
