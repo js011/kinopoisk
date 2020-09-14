@@ -22,19 +22,24 @@ class MoviesList extends React.Component {
 
     if (p.filters.sort_by !== filters.sort_by) {
       onChangePage(1)
-      this.getMovies(filters, 1)
+      this.getMovies(filters)
     }
 
     if (p.page !== page) {
       this.getMovies(filters, page)
     }
+
+    if (p.filters.primary_release_year !== filters.primary_release_year) {
+      onChangePage(1)
+      this.getMovies(filters)
+    }
   }
 
-  getMovies = (filters, page) => {
-    const { sort_by } = filters
+  getMovies = (filters, page = 1) => {
+    const { sort_by, primary_release_year } = filters
     const { onChangeTotalPages } = this.props
 
-    const link = `${api_url}/discover/movie?api_key=${api_key_movieDB_v3}&language=ru-RU&sort_by=${sort_by}&page=${page}`
+    const link = `${api_url}/discover/movie?api_key=${api_key_movieDB_v3}&language=ru-RU&sort_by=${sort_by}&page=${page}&primary_release_year=${primary_release_year}`
     return fetch(link)
       .then((response) => response.json())
       .then((data) => {

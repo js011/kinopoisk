@@ -13,7 +13,7 @@ export default class Pagination extends React.Component {
         >
           Назад
         </button>
-        <div className="col-4 total-pages">{`${page} of ${total_pages}`}</div>
+        <div className="col-4 total-pages">{`${page} из ${total_pages}`}</div>
         <button
           type="button"
           className="btn btn-light col-4"

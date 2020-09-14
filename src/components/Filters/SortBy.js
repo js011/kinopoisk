@@ -32,19 +32,19 @@ export default class SortBy extends React.PureComponent {
     const { sort_by, onChangeFilters, sortByOptions } = this.props
 
     return (
-        <select
-          className="form-control"
-          name="sort_by"
-          id="sort_by"
-          value={sort_by}
-          onChange={onChangeFilters}
-        >
-          {sortByOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
+      <select
+        className="form-control"
+        name="sort_by"
+        id="sort_by"
+        value={sort_by}
+        onChange={onChangeFilters}
+      >
+        {sortByOptions.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
     )
   }
 }

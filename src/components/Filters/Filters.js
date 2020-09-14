@@ -1,11 +1,12 @@
 import React from 'react'
 import SortBy from './SortBy'
+import PrimaryReleaseYear from './PrimaryReleaseYear'
 import Pagination from './Pagination'
 
 class Filters extends React.Component {
   render() {
     const {
-      filters: { sort_by },
+      filters: { sort_by, primary_release_year },
       onChangeFilters,
       page,
       onChangePage,
@@ -16,7 +17,7 @@ class Filters extends React.Component {
       <>
         <form className="mb-3">
           <div className="sort form-group">
-            <label className="filters-name" htmlFor="sort_by">
+            <label className="filters-label" htmlFor="sort_by">
               Сортировать
             </label>
             <SortBy sort_by={sort_by} onChangeFilters={onChangeFilters} />
@@ -26,6 +27,15 @@ class Filters extends React.Component {
             onChangePage={onChangePage}
             page={page}
           />
+          <div className="sort form-group mt-3">
+            <label className="filters-label" htmlFor="sort_by">
+              Фильтровать
+            </label>
+            <PrimaryReleaseYear
+              primary_release_year={primary_release_year}
+              onChangeFilters={onChangeFilters}
+            />
+          </div>
         </form>
       </>
     )
