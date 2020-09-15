@@ -1,10 +1,10 @@
 import React from 'react'
 
-const Header = (props) => {
+const Header = () => {
   return (
     <div className="container pt-3 pb-3">
       <div className="title col-2">
-        <p className="title__name" style={{ visibility: 'hidden' }}>
+        <p className="title__name">
           Kino<span className="title__name-prefix">poisk</span>
         </p>
       </div>

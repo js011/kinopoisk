@@ -8,7 +8,7 @@ class App extends Component {
   constructor() {
     super()
 
-    this.initializeState = {
+    this.initialState = {
       filters: {
         sort_by: 'popularity.desc',
         primary_release_year: new Date().getFullYear(),
@@ -17,7 +17,7 @@ class App extends Component {
       total_pages: '',
     }
 
-    this.state = this.initializeState
+    this.state = this.initialState
   }
 
   onChangeFilters = (e) => {
