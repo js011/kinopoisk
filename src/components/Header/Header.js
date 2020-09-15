@@ -4,7 +4,7 @@ const Header = () => {
   return (
     <div className="container pt-3 pb-3">
       <div className="title col-2">
-        <p className="title__name">
+        <p className="title__name" style={{ visibility: 'hidden' }}>
           Kino<span className="title__name-prefix">poisk</span>
         </p>
       </div>

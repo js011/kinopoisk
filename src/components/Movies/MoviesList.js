@@ -1,8 +1,10 @@
 import React from 'react'
 import { api_url, api_key_movieDB_v3 } from '../../utils/apies'
 import MovieItem from '../Movies/MovieItem'
+import _ from 'lodash'
+import queryString from 'query-string'
 
-class MoviesList extends React.Component {
+class MoviesList extends React.PureComponent {
   constructor() {
     super()
 
@@ -20,7 +22,7 @@ class MoviesList extends React.Component {
   componentDidUpdate(p) {
     const { onChangePage, filters, page } = this.props
 
-    if (p.filters.sort_by !== filters.sort_by) {
+    if (!_.isEqual(p.filters, filters)) {
       onChangePage(1)
       this.getMovies(filters)
     }
@@ -28,18 +30,24 @@ class MoviesList extends React.Component {
     if (p.page !== page) {
       this.getMovies(filters, page)
     }
-
-    if (p.filters.primary_release_year !== filters.primary_release_year) {
-      onChangePage(1)
-      this.getMovies(filters)
-    }
   }
 
   getMovies = (filters, page = 1) => {
-    const { sort_by, primary_release_year } = filters
+    const { sort_by, primary_release_year, with_genres } = filters
     const { onChangeTotalPages } = this.props
 
-    const link = `${api_url}/discover/movie?api_key=${api_key_movieDB_v3}&language=ru-RU&sort_by=${sort_by}&page=${page}&primary_release_year=${primary_release_year}`
+    const apiParams = {
+      api_key: api_key_movieDB_v3,
+      language: 'ru-RU',
+      sort_by,
+      page,
+      primary_release_year,
+      with_genres: with_genres.join(','),
+    }
+
+    const link = `
+    ${api_url}/discover/movie?${queryString.stringify(apiParams)}`
+
     return fetch(link)
       .then((response) => response.json())
       .then((data) => {

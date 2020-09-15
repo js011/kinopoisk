@@ -9,7 +9,6 @@
     width: 100%;
     height: auto;
     margin-bottom: 40px;
-    background: #e2e6ea;
 }
 
 .title {
@@ -123,5 +122,25 @@
     display: block;
     margin: 0px 0px 4px;
     font-size: 16px;
+    font-weight: 500;
+}
+
+.genre-label {
+    display: block;
+    margin: 10px 0px 4px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.genres {
+    margin-top: 7px;
+    padding-left: 5px;
+}
+
+.genres__item__label {
+    position: relative;
+    top: -1px;
+    margin-left: 6px;
+    font-size: 15px;
     font-weight: 500;
 }

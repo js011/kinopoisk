@@ -12,12 +12,12 @@ class App extends Component {
       filters: {
         sort_by: 'popularity.desc',
         primary_release_year: new Date().getFullYear(),
+        with_genres: [],
       },
       page: 1,
-      total_pages: '',
     }
 
-    this.state = this.initialState
+    this.state = { ...this.initialState, total_pages: '' }
   }
 
   onChangeFilters = (e) => {
@@ -43,6 +43,31 @@ class App extends Component {
     })
   }
 
+  onChangeGenres = (e) => {
+    const { name, value } = e.target
+    const updateGenres = this.state.filters.with_genres
+
+    if (updateGenres.indexOf(String(value)) === -1) {
+      this.setState((s) => ({
+        filters: {
+          ...s.filters,
+          [name]: [...s.filters.with_genres, value],
+        },
+      }))
+    } else {
+      this.setState((s) => ({
+        filters: {
+          ...s.filters,
+          [name]: s.filters.with_genres.filter((item) => item !== value),
+        },
+      }))
+    }
+  }
+
+  resetFilters = () => {
+    this.setState(this.initialState)
+  }
+
   render() {
     const { filters, page, total_pages } = this.state
     return (
@@ -59,6 +84,8 @@ class App extends Component {
                 page={page}
                 onChangePage={this.onChangePage}
                 total_pages={total_pages}
+                onChangeGenres={this.onChangeGenres}
+                resetFilters={this.resetFilters}
               />
             </div>
             <div className="movies col-9">
