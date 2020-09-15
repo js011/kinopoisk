@@ -139,8 +139,9 @@
 
 .genres__item__label {
     position: relative;
-    top: -1px;
+    top: -1.5px;
     margin-left: 6px;
     font-size: 15px;
     font-weight: 500;
+    margin-bottom: 2px;
 }
