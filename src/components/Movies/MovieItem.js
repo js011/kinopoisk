@@ -25,7 +25,7 @@ export default class MovieItem extends React.Component {
         <img
           className="movie-card__img"
           src={
-            imagePath
+            imagePath !== null
               ? `${api_img_url}${movie.poster_path}`
               : `not-foundPoster.png`
           }
