@@ -23,6 +23,7 @@ class App extends Component {
   onChangeFilters = (e) => {
     const { name, value } = e.target
 
+    console.log(name, value)
     this.setState((s) => ({
       filters: {
         ...s.filters,
@@ -41,27 +42,6 @@ class App extends Component {
     this.setState({
       total_pages,
     })
-  }
-
-  onChangeGenres = (e) => {
-    const { name, value } = e.target
-    const updateGenres = this.state.filters.with_genres
-
-    if (updateGenres.indexOf(String(value)) === -1) {
-      this.setState((s) => ({
-        filters: {
-          ...s.filters,
-          [name]: [...s.filters.with_genres, value],
-        },
-      }))
-    } else {
-      this.setState((s) => ({
-        filters: {
-          ...s.filters,
-          [name]: s.filters.with_genres.filter((item) => item !== value),
-        },
-      }))
-    }
   }
 
   resetFilters = () => {
@@ -84,7 +64,6 @@ class App extends Component {
                 page={page}
                 onChangePage={this.onChangePage}
                 total_pages={total_pages}
-                onChangeGenres={this.onChangeGenres}
                 resetFilters={this.resetFilters}
               />
             </div>

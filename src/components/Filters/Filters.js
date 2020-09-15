@@ -29,7 +29,6 @@ class Filters extends React.Component {
       page,
       onChangePage,
       total_pages,
-      onChangeGenres,
       resetFilters,
     } = this.props
 
@@ -60,12 +59,12 @@ class Filters extends React.Component {
             />
             <Genres
               with_genres={filters.with_genres}
+              onChangeFilters={onChangeFilters}
               allGenres={
                 this.state.allGenres.genres !== undefined
                   ? this.state.allGenres.genres
                   : []
               }
-              onChangeGenres={onChangeGenres}
             />
             <button
               onClick={resetFilters}

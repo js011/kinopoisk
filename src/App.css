@@ -49,6 +49,9 @@
 
 .movie-card {
     width: 200px;
+    max-width: 200px;
+    height: auto;
+    max-height: 365px;
     position: relative;
     display: flex;
     flex-direction: column;
