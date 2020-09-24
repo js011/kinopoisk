@@ -9,6 +9,7 @@
     width: 100%;
     height: auto;
     margin-bottom: 40px;
+    background: currentColor;
 }
 
 .title {
@@ -24,6 +25,7 @@
     margin: 0px;
     font-size: 24px;
     font-family: 'Open Sans';
+    color: whitesmoke;
 }
 
 .title__name-prefix {
