@@ -1,8 +1,10 @@
 import React from 'react'
-import Authentication from './Authentication/Authentication'
+import Authentication from './Authentication/Authentication.jsx'
+import User from './User'
 
 class Header extends React.Component {
   render() {
+    const { user, updateUser, updateSessionId } = this.props
     return (
       <div className="container">
         <div className="pt-3 pb-3 row col-12">
@@ -13,7 +15,14 @@ class Header extends React.Component {
           </div>
           <div className="search col-8"></div>
           <div className="login col-2">
-            <Authentication />
+            {user ? (
+              <User user={user} />
+            ) : (
+              <Authentication
+                updateSessionId={updateSessionId}
+                updateUser={updateUser}
+              />
+            )}
           </div>
         </div>
       </div>

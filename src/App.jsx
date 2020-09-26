@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
 import './App.css'
-import Header from './components/Header/Header'
-import Filters from './components/Filters/Filters'
-import MoviesList from './components/Movies/MoviesList'
+import Header from './components/Header/Header.jsx'
+import Filters from './components/Filters/Filters.jsx'
+import MoviesList from './components/Movies/MoviesList.jsx'
 
 class App extends Component {
   constructor() {
     super()
 
     this.initialState = {
+      user: null,
+      session_id: '',
       filters: {
         sort_by: 'popularity.desc',
         primary_release_year: new Date().getFullYear(),
@@ -31,6 +33,18 @@ class App extends Component {
     }))
   }
 
+  updateUser = (user) => {
+    this.setState({
+      user,
+    })
+  }
+
+  updateSessionId = (session_id) => {
+    this.setState({
+      session_id,
+    })
+  }
+
   onChangePage = (page) => {
     this.setState({
       page,
@@ -48,11 +62,15 @@ class App extends Component {
   }
 
   render() {
-    const { filters, page, total_pages } = this.state
+    const { filters, page, total_pages, user } = this.state
     return (
       <>
         <div className="header">
-          <Header />
+          <Header
+            updateUser={this.updateUser}
+            updateSessionId={this.updateSessionId}
+            user={user}
+          />
         </div>
         <div className="main container">
           <div className="row">

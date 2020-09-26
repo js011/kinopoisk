@@ -1,6 +1,6 @@
 import React from 'react'
 import { Modal, ModalBody } from 'reactstrap'
-import AuthenticationForm from './AuthenticationForm'
+import AuthenticationForm from './AuthenticationForm.jsx'
 
 export default class Authentication extends React.Component {
   constructor() {
@@ -18,6 +18,7 @@ export default class Authentication extends React.Component {
   }
 
   render() {
+    const { updateUser, updateSessionId } = this.props
     return (
       <>
         <button
@@ -29,7 +30,10 @@ export default class Authentication extends React.Component {
         </button>
         <Modal isOpen={this.state.showModal} toggle={this.toggleModal}>
           <ModalBody>
-            <AuthenticationForm />
+            <AuthenticationForm
+              updateUser={updateUser}
+              updateSessionId={updateSessionId}
+            />
           </ModalBody>
         </Modal>
       </>

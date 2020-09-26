@@ -1,9 +1,9 @@
 import React from 'react'
-import SortBy from './SortBy'
-import Pagination from './Pagination'
-import PrimaryReleaseYear from './PrimaryReleaseYear'
+import SortBy from './SortBy.jsx'
+import Pagination from './Pagination.jsx'
+import PrimaryReleaseYear from './PrimaryReleaseYear.jsx'
+import Genres from './Genres.jsx'
 import { api_key_movieDB_v3 } from '../../utils/apies'
-import Genres from './Genres'
 
 class Filters extends React.Component {
   constructor() {

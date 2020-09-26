@@ -68,16 +68,17 @@ export default class AuthenticationForm extends React.Component {
           }
         )
       })
-      .then((data) =>
-        fetchApi(
+      .then((data) => {
+        this.props.updateSessionId(data.session_id)
+        return fetchApi(
           `${api_url}/account?api_key=${api_key_movieDB_v3}&session_id=${data.session_id}`
         )
-      )
+      })
       .then((user) => {
+        this.props.updateUser(user)
         this.setState({
           submitting: false,
         })
-        console.log(user)
       })
       .catch((error) => {
         console.log('error', error)

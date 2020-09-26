@@ -1,6 +1,6 @@
 import React from 'react'
 import { api_url, api_key_movieDB_v3 } from '../../utils/apies'
-import MovieItem from '../Movies/MovieItem'
+import MovieItem from './MovieItem.jsx'
 import _ from 'lodash'
 import queryString from 'query-string'
 
