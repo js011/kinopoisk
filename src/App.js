@@ -23,7 +23,6 @@ class App extends Component {
   onChangeFilters = (e) => {
     const { name, value } = e.target
 
-    console.log(name, value)
     this.setState((s) => ({
       filters: {
         ...s.filters,

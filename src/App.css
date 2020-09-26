@@ -28,9 +28,21 @@
     color: whitesmoke;
 }
 
-.title__name-prefix {
+.title__sub-name {
     padding-left: 1px;
     color: goldenrod;
+}
+
+.login {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.login-form__title {
+    font-size: 22px;
+    text-align: center;
+    margin-bottom: 10px;
 }
 
 .main {
@@ -149,4 +161,8 @@
     font-size: 15px;
     font-weight: 500;
     margin-bottom: 2px;
+}
+
+.invalid-feedback {
+    display: block !important;
 }
