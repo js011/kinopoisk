@@ -14,7 +14,7 @@ export default class AuthenticationForm extends React.Component {
     }
   }
 
-  getSessionId = async () => {
+  getUser = async () => {
     const fetchApi = (url, options = {}) => {
       return new Promise((resolve, reject) => {
         fetch(url, options)
@@ -68,10 +68,16 @@ export default class AuthenticationForm extends React.Component {
           }
         )
       })
-      .then((data) => {
+      .then((data) =>
+        fetchApi(
+          `${api_url}/account?api_key=${api_key_movieDB_v3}&session_id=${data.session_id}`
+        )
+      )
+      .then((user) => {
         this.setState({
           submitting: false,
         })
+        console.log(user)
       })
       .catch((error) => {
         console.log('error', error)
@@ -118,6 +124,10 @@ export default class AuthenticationForm extends React.Component {
     //         request_token: validateTokenWithLogin.request_token,
     //       }),
     //     }
+    //   )
+
+    //   const user = await fetchApi(
+    //     `${api_url}/account?api_key=${api_key_movieDB_v3}&session_id=${session_id}`
     //   )
     // } catch (error) {}
   }
@@ -174,7 +184,7 @@ export default class AuthenticationForm extends React.Component {
         errors: { ...errors },
       })
     } else {
-      this.getSessionId()
+      this.getUser()
     }
   }
 
