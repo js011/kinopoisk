@@ -1,6 +1,6 @@
 import React from 'react'
 import Authentication from './Authentication/Authentication.jsx'
-import User from './User'
+import User from './User.jsx'
 
 class Header extends React.Component {
   render() {

@@ -6,3 +6,17 @@ export const api_key_movieDB_v3 = '2bf9f43ff01f800a4b2838b95fcce99e'
 
 export const api_key_movieDB_v4 =
   'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyYmY5ZjQzZmYwMWY4MDBhNGIyODM4Yjk1ZmNjZTk5ZSIsInN1YiI6IjVjZTkyOWU3YzNhMzY4MWM0ZTFlODRkNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.fffZy6W_ZCD20rApqm9asph-hWYo_w8zjvPNLyZf-wY'
+
+export const fetchApi = (url, options = {}) => {
+  return new Promise((resolve, reject) => {
+    fetch(url, options)
+      .then((response) => {
+        if (response.status < 400) {
+          return resolve(response.json())
+        } else {
+          throw response
+        }
+      })
+      .catch((response) => response.json().then((error) => reject(error)))
+  })
+}

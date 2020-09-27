@@ -166,3 +166,7 @@
 .invalid-feedback {
     display: block !important;
 }
+
+input.invalid {
+    border-color: #dc3545;
+}

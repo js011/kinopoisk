@@ -3,6 +3,10 @@ import './App.css'
 import Header from './components/Header/Header.jsx'
 import Filters from './components/Filters/Filters.jsx'
 import MoviesList from './components/Movies/MoviesList.jsx'
+import { api_url, api_key_movieDB_v3, fetchApi } from './utils/apies'
+import Cookies from 'universal-cookie'
+
+const cookies = new Cookies()
 
 class App extends Component {
   constructor() {
@@ -20,6 +24,18 @@ class App extends Component {
     }
 
     this.state = { ...this.initialState, total_pages: '' }
+  }
+
+  componentDidMount() {
+    const session_id = cookies.get('session_id')
+
+    if (session_id) {
+      fetchApi(
+        `${api_url}/account?api_key=${api_key_movieDB_v3}&session_id=${session_id}`
+      ).then((data) => {
+        this.updateUser(data)
+      })
+    }
   }
 
   onChangeFilters = (e) => {
@@ -40,6 +56,10 @@ class App extends Component {
   }
 
   updateSessionId = (session_id) => {
+    cookies.set('session_id', session_id, {
+      path: '/',
+      maxAge: 2592000,
+    })
     this.setState({
       session_id,
     })

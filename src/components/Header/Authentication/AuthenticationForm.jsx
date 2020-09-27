@@ -1,5 +1,6 @@
 import React from 'react'
-import { api_url, api_key_movieDB_v3 } from '../../../utils/apies'
+import { api_url, api_key_movieDB_v3, fetchApi } from '../../../utils/apies'
+import classNames from 'classnames'
 
 export default class AuthenticationForm extends React.Component {
   constructor() {
@@ -15,20 +16,6 @@ export default class AuthenticationForm extends React.Component {
   }
 
   getUser = async () => {
-    const fetchApi = (url, options = {}) => {
-      return new Promise((resolve, reject) => {
-        fetch(url, options)
-          .then((response) => {
-            if (response.status < 400) {
-              return resolve(response.json())
-            } else {
-              throw response
-            }
-          })
-          .catch((response) => response.json().then((error) => reject(error)))
-      })
-    }
-
     this.setState({
       submitting: true,
     })
@@ -75,10 +62,14 @@ export default class AuthenticationForm extends React.Component {
         )
       })
       .then((user) => {
-        this.props.updateUser(user)
-        this.setState({
-          submitting: false,
-        })
+        this.setState(
+          {
+            submitting: false,
+          },
+          () => {
+            this.props.updateUser(user)
+          }
+        )
       })
       .catch((error) => {
         console.log('error', error)
@@ -189,6 +180,12 @@ export default class AuthenticationForm extends React.Component {
     }
   }
 
+  getClassForInpur = (errorName) => {
+    return classNames('form-control', {
+      invalid: this.state.errors[errorName],
+    })
+  }
+
   render() {
     const {
       username,
@@ -205,7 +202,7 @@ export default class AuthenticationForm extends React.Component {
         <div className="login-form__title">Авторизация</div>
         <label htmlFor="username">Логин:</label>
         <input
-          className="form-control"
+          className={this.getClassForInpur('username')}
           type="text"
           placeholder="Логин"
           id="username"
@@ -214,12 +211,14 @@ export default class AuthenticationForm extends React.Component {
           onChange={this.onChange}
           onBlur={this.handleBlur}
         />
-        <div className="invalid-feedback pl-2">{errors.username}</div>
+        {errors.username && (
+          <div className="invalid-feedback pl-2">{errors.username}</div>
+        )}
         <label htmlFor="password" className="mt-2">
           Пароль:
         </label>
         <input
-          className="form-control"
+          className={this.getClassForInpur('password')}
           type="password"
           placeholder="Пароль"
           id="password"
@@ -228,12 +227,14 @@ export default class AuthenticationForm extends React.Component {
           onChange={this.onChange}
           onBlur={this.handleBlur}
         />
-        <div className="invalid-feedback pl-2">{errors.password}</div>
+        {errors.password && (
+          <div className="invalid-feedback pl-2">{errors.password}</div>
+        )}
         <label htmlFor="repeatPassword" className="mt-2">
           Повторите пароль:
         </label>
         <input
-          className="form-control"
+          className={this.getClassForInpur('repeatPassword')}
           type="password"
           placeholder="Пароль"
           id="repeatPassword"
@@ -242,7 +243,9 @@ export default class AuthenticationForm extends React.Component {
           onChange={this.onChange}
           onBlur={this.handleBlur}
         />
-        <div className="invalid-feedback pl-2">{errors.repeatPassword}</div>
+        {errors.repeatPassword && (
+          <div className="invalid-feedback pl-2">{errors.repeatPassword}</div>
+        )}
         <button
           type="submit"
           className="btn btn-success text-center col-12 mt-4 pb-2"
