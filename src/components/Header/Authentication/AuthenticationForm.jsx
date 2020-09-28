@@ -7,15 +7,18 @@ export default class AuthenticationForm extends React.Component {
     super()
 
     this.state = {
-      username: 'vadim_.iva._._',
-      password: 'Diamond621',
-      repeatPassword: 'Diamond621',
+      // username: 'vadim_.iva._._',
+      // password: 'Diamond621',
+      // repeatPassword: 'Diamond621',
+      username: '',
+      password: '',
+      repeatPassword: '',
       submitting: false,
       errors: {},
     }
   }
 
-  getUser = async () => {
+  getUser = () => {
     this.setState({
       submitting: true,
     })
@@ -82,49 +85,9 @@ export default class AuthenticationForm extends React.Component {
           submitting: false,
         }))
       })
-
-    // try {
-    //   const token = await fetchApi(
-    //     `${api_url}/authentication/token/new?api_key=${api_key_movieDB_v3}`
-    //   )
-
-    //   const validateTokenWithLogin = await fetchApi(
-    //     `${api_url}/authentication/token/validate_with_login?api_key=${api_key_movieDB_v3}`,
-    //     {
-    //       method: 'POST',
-    //       mode: 'cors',
-    //       headers: {
-    //         'Content-type': 'application/json',
-    //       },
-    //       body: JSON.stringify({
-    //         username: 'vadim_.iva._._',
-    //         password: 'Diamond621',
-    //         request_token: token.request_token,
-    //       }),
-    //     }
-    //   )
-
-    //   const { session_id } = await fetchApi(
-    //     `${api_url}/authentication/session/new?api_key=${api_key_movieDB_v3}`,
-    //     {
-    //       method: 'POST',
-    //       mode: 'cors',
-    //       headers: {
-    //         'Content-type': 'application/json',
-    //       },
-    //       body: JSON.stringify({
-    //         request_token: validateTokenWithLogin.request_token,
-    //       }),
-    //     }
-    //   )
-
-    //   const user = await fetchApi(
-    //     `${api_url}/account?api_key=${api_key_movieDB_v3}&session_id=${session_id}`
-    //   )
-    // } catch (error) {}
   }
 
-  validateErrors = () => {
+  validateFields = () => {
     const errors = {}
 
     if (this.state.username.length < 5) {
@@ -152,24 +115,22 @@ export default class AuthenticationForm extends React.Component {
     }))
   }
 
-  handleBlur = () => {
-    const errors = this.validateErrors()
+  handleBlur = (e) => {
+    const { name } = e.target
+    const errors = this.validateFields()
+    const error = errors[name]
 
     if (Object.keys(errors).length > 0) {
-      this.setState({
-        errors: { ...errors },
-      })
-    } else {
-      this.setState({
-        errors: {},
-      })
+      this.setState((prevState) => ({
+        errors: { ...prevState.errors, [name]: error },
+      }))
     }
   }
 
   onSubmit = (e) => {
     e.preventDefault()
 
-    const errors = this.validateErrors()
+    const errors = this.validateFields()
 
     if (Object.keys(errors).length > 0) {
       this.setState({
