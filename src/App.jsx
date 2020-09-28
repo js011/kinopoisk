@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './App.css'
 import Header from './components/Header/Header.jsx'
 import Filters from './components/Filters/Filters.jsx'
-import MoviesList from './components/Movies/MoviesList.jsx'
+import MoviesContainer from './components/Movies/MoviesContainer.jsx'
 import { api_url, api_key_movieDB_v3, fetchApi } from './utils/apies'
 import Cookies from 'universal-cookie'
 
@@ -105,7 +105,7 @@ class App extends Component {
               />
             </div>
             <div className="movies col-9">
-              <MoviesList
+              <MoviesContainer
                 filters={filters}
                 page={page}
                 onChangePage={this.onChangePage}

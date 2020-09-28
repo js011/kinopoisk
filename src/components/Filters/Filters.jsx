@@ -2,26 +2,9 @@ import React from 'react'
 import SortBy from './SortBy.jsx'
 import Pagination from './Pagination.jsx'
 import PrimaryReleaseYear from './PrimaryReleaseYear.jsx'
-import Genres from './Genres.jsx'
-import { api_key_movieDB_v3 } from '../../utils/apies'
+import Genres from './Genres/GenresContainer.jsx'
 
 class Filters extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      allGenres: [],
-    }
-  }
-
-  componentDidMount() {
-    const link = `https://api.themoviedb.org/3/genre/movie/list?api_key=${api_key_movieDB_v3}&language=ru-RU`
-    return fetch(link)
-      .then((response) => response.json())
-      .then((data) => {
-        this.setState({ allGenres: data })
-      })
-  }
-
   render() {
     const {
       filters,
@@ -60,11 +43,6 @@ class Filters extends React.Component {
             <Genres
               with_genres={filters.with_genres}
               onChangeFilters={onChangeFilters}
-              allGenres={
-                this.state.allGenres.genres !== undefined
-                  ? this.state.allGenres.genres
-                  : []
-              }
             />
             <button
               onClick={resetFilters}
