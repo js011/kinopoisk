@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/kinopoisk/static/css/main.5ea85147.chunk.css",
-    "main.js": "/kinopoisk/static/js/main.bec1ffb4.chunk.js",
-    "main.js.map": "/kinopoisk/static/js/main.bec1ffb4.chunk.js.map",
+    "main.js": "/kinopoisk/static/js/main.7cab9cdf.chunk.js",
+    "main.js.map": "/kinopoisk/static/js/main.7cab9cdf.chunk.js.map",
     "runtime-main.js": "/kinopoisk/static/js/runtime-main.75c22331.js",
     "runtime-main.js.map": "/kinopoisk/static/js/runtime-main.75c22331.js.map",
     "static/css/2.d9ad5f5c.chunk.css": "/kinopoisk/static/css/2.d9ad5f5c.chunk.css",
-    "static/js/2.8b9f6238.chunk.js": "/kinopoisk/static/js/2.8b9f6238.chunk.js",
-    "static/js/2.8b9f6238.chunk.js.map": "/kinopoisk/static/js/2.8b9f6238.chunk.js.map",
+    "static/js/2.c959d12a.chunk.js": "/kinopoisk/static/js/2.c959d12a.chunk.js",
+    "static/js/2.c959d12a.chunk.js.map": "/kinopoisk/static/js/2.c959d12a.chunk.js.map",
     "index.html": "/kinopoisk/index.html",
-    "precache-manifest.c86a56b31da495e6b893f5d7af9973d8.js": "/kinopoisk/precache-manifest.c86a56b31da495e6b893f5d7af9973d8.js",
+    "precache-manifest.3dfbba90a89254d771b3b9af1d4a656f.js": "/kinopoisk/precache-manifest.3dfbba90a89254d771b3b9af1d4a656f.js",
     "service-worker.js": "/kinopoisk/service-worker.js",
     "static/css/2.d9ad5f5c.chunk.css.map": "/kinopoisk/static/css/2.d9ad5f5c.chunk.css.map",
     "static/css/main.5ea85147.chunk.css.map": "/kinopoisk/static/css/main.5ea85147.chunk.css.map",
-    "static/js/2.8b9f6238.chunk.js.LICENSE.txt": "/kinopoisk/static/js/2.8b9f6238.chunk.js.LICENSE.txt"
+    "static/js/2.c959d12a.chunk.js.LICENSE.txt": "/kinopoisk/static/js/2.c959d12a.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.75c22331.js",
     "static/css/2.d9ad5f5c.chunk.css",
-    "static/js/2.8b9f6238.chunk.js",
+    "static/js/2.c959d12a.chunk.js",
     "static/css/main.5ea85147.chunk.css",
-    "static/js/main.bec1ffb4.chunk.js"
+    "static/js/main.7cab9cdf.chunk.js"
   ]
 }
