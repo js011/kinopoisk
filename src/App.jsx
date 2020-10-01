@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import './App.css'
 import Header from './components/Header/Header.jsx'
 import Filters from './components/Filters/Filters.jsx'
@@ -8,7 +8,9 @@ import Cookies from 'universal-cookie'
 
 const cookies = new Cookies()
 
-class App extends Component {
+export const AppContext = React.createContext()
+
+export default class App extends React.Component {
   constructor() {
     super()
 
@@ -82,15 +84,18 @@ class App extends Component {
   }
 
   render() {
-    const { filters, page, total_pages, user } = this.state
+    const { filters, page, total_pages, user, session_id } = this.state
     return (
-      <>
+      <AppContext.Provider
+        value={{
+          user,
+          updateUser: this.updateUser,
+          session_id,
+          updateSessionId: this.updateSessionId,
+        }}
+      >
         <div className="header">
-          <Header
-            updateUser={this.updateUser}
-            updateSessionId={this.updateSessionId}
-            user={user}
-          />
+          <Header updateSessionId={this.updateSessionId} user={user} />
         </div>
         <div className="main container">
           <div className="row">
@@ -114,9 +119,7 @@ class App extends Component {
             </div>
           </div>
         </div>
-      </>
+      </AppContext.Provider>
     )
   }
 }
-
-export default App

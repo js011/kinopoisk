@@ -1,8 +1,9 @@
 import React from 'react'
 import { api_url, api_key_movieDB_v3, fetchApi } from '../../../utils/apies'
 import classNames from 'classnames'
+import { AppContext } from '../../../App.jsx'
 
-export default class AuthenticationForm extends React.Component {
+class AuthenticationForm extends React.Component {
   constructor() {
     super()
 
@@ -75,8 +76,6 @@ export default class AuthenticationForm extends React.Component {
         )
       })
       .catch((error) => {
-        console.log('error', error)
-
         this.setState((prevState) => ({
           errors: {
             ...prevState.errors,
@@ -96,7 +95,7 @@ export default class AuthenticationForm extends React.Component {
     if (this.state.password.length < 6) {
       errors.password = 'Укажите пароль, минимум 6 зачений'
     }
-    if (String(this.state.password) !== String(this.state.repeatPassword)) {
+    if (this.state.password !== this.state.repeatPassword) {
       errors.repeatPassword = 'Пароли не идентичны'
     }
 
@@ -221,3 +220,21 @@ export default class AuthenticationForm extends React.Component {
     )
   }
 }
+
+const AuthenticationFormContainer = (props) => {
+  return (
+    <AppContext.Consumer>
+      {(context) => {
+        return (
+          <AuthenticationForm
+            updateUser={context.updateUser}
+            updateSessionId={context.updateSessionId}
+            {...props}
+          />
+        )
+      }}
+    </AppContext.Consumer>
+  )
+}
+
+export default AuthenticationFormContainer

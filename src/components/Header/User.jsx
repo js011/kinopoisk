@@ -1,8 +1,10 @@
 import React from 'react'
+import { AppContext } from '../../App.jsx'
 
-export default class User extends React.Component {
+class User extends React.Component {
   render() {
     const { user } = this.props
+
     return (
       <div>
         <img
@@ -15,3 +17,11 @@ export default class User extends React.Component {
     )
   }
 }
+
+const UserContainer = (props) => (
+  <AppContext.Consumer>
+    {(context) => <User user={context.user} {...props} />}
+  </AppContext.Consumer>
+)
+
+export default UserContainer
