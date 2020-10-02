@@ -2,9 +2,9 @@ import React from 'react'
 import './App.css'
 import Header from './components/Header/Header.jsx'
 import Filters from './components/Filters/Filters.jsx'
-import MoviesContainer from './components/Movies/MoviesContainer.jsx'
 import { api_url, api_key_movieDB_v3, fetchApi } from './utils/apies'
 import Cookies from 'universal-cookie'
+import MoviesList from './components/Movies/MoviesList'
 
 const cookies = new Cookies()
 
@@ -110,7 +110,7 @@ export default class App extends React.Component {
               />
             </div>
             <div className="movies col-9">
-              <MoviesContainer
+              <MoviesList
                 filters={filters}
                 page={page}
                 onChangePage={this.onChangePage}

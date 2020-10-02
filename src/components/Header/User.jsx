@@ -1,5 +1,5 @@
 import React from 'react'
-import { AppContext } from '../../App.jsx'
+import AppContextHOC from '../HOC/AppContextHOC.jsx'
 
 class User extends React.Component {
   render() {
@@ -18,10 +18,4 @@ class User extends React.Component {
   }
 }
 
-const UserContainer = (props) => (
-  <AppContext.Consumer>
-    {(context) => <User user={context.user} {...props} />}
-  </AppContext.Consumer>
-)
-
-export default UserContainer
+export default AppContextHOC(User)

@@ -1,16 +1,13 @@
 import React from 'react'
 import { api_url, api_key_movieDB_v3, fetchApi } from '../../../utils/apies'
 import classNames from 'classnames'
-import { AppContext } from '../../../App.jsx'
+import AppContextHOC from '../../HOC/AppContextHOC.jsx'
 
 class AuthenticationForm extends React.Component {
   constructor() {
     super()
 
     this.state = {
-      // username: 'vadim_.iva._._',
-      // password: 'Diamond621',
-      // repeatPassword: 'Diamond621',
       username: '',
       password: '',
       repeatPassword: '',
@@ -221,20 +218,4 @@ class AuthenticationForm extends React.Component {
   }
 }
 
-const AuthenticationFormContainer = (props) => {
-  return (
-    <AppContext.Consumer>
-      {(context) => {
-        return (
-          <AuthenticationForm
-            updateUser={context.updateUser}
-            updateSessionId={context.updateSessionId}
-            {...props}
-          />
-        )
-      }}
-    </AppContext.Consumer>
-  )
-}
-
-export default AuthenticationFormContainer
+export default AppContextHOC(AuthenticationForm)
