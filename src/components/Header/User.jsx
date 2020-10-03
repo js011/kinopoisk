@@ -1,8 +1,17 @@
 import React from 'react'
 import AppContextHOC from '../HOC/AppContextHOC.jsx'
 import UIDropdown from '../UI Components/UIDropdown.jsx'
+import CallApi from '../../utils/apies'
 
 class User extends React.Component {
+  handleLogOut = () => {
+    CallApi.delete('/authentication/session', {
+      body: { session_id: this.props.session_id },
+    }).then(() => {
+      this.props.onLogOut()
+    })
+  }
+
   render() {
     const { user } = this.props
 
@@ -12,22 +21,21 @@ class User extends React.Component {
           <UIDropdown
             render={(toggleShow) => (
               <img
-                width="40"
                 className="user-img rounded-circle"
                 src={`https://secure.gravatar.com/avatar/${user.avatar.gravatar.hash}.jpg?s=64`}
                 alt=""
                 onClick={toggleShow}
               />
             )}
-            position={{ right: '2.5px', top: '55px' }}
+            position={{ right: '2.5px', top: '50px' }}
           >
-            {(toggleShow) => {
+            {() => {
               return (
                 <div className="dropdown__menu">
-                  <div className="dropdown__menu-item" onClick={toggleShow}>
-                    Настройки
-                  </div>
-                  <div className="dropdown__menu-item" onClick={toggleShow}>
+                  <div
+                    className="dropdown__menu-item"
+                    onClick={this.handleLogOut}
+                  >
                     Выйти
                   </div>
                 </div>

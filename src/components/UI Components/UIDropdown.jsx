@@ -19,9 +19,9 @@ export default class UIDropdown extends React.Component {
   }
 
   toggleShow = () => {
-    this.setState({
-      show: !this.state.show,
-    })
+    this.setState((prevState) => ({
+      show: !prevState.show,
+    }))
   }
 
   render() {

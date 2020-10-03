@@ -1,7 +1,6 @@
 import React from 'react'
-import { api_url, api_key_movieDB_v3 } from '../../utils/apies'
+import CallApi from '../../utils/apies'
 import _ from 'lodash'
-import queryString from 'query-string'
 
 export default (Component) =>
   class MoviesHOC extends React.PureComponent {
@@ -37,7 +36,6 @@ export default (Component) =>
       const { onChangeTotalPages } = this.props
 
       const apiParams = {
-        api_key: api_key_movieDB_v3,
         language: 'ru-RU',
         sort_by,
         page,
@@ -45,15 +43,12 @@ export default (Component) =>
         with_genres: with_genres.join(','),
       }
 
-      const link = `
-    ${api_url}/discover/movie?${queryString.stringify(apiParams)}`
-
-      return fetch(link)
-        .then((response) => response.json())
-        .then((data) => {
+      return CallApi.get('/discover/movie', { params: apiParams }).then(
+        (data) => {
           onChangeTotalPages(data.total_pages)
           this.setState({ movies: data.results })
-        })
+        }
+      )
     }
 
     render() {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { api_url, api_key_movieDB_v3, fetchApi } from '../../../utils/apies'
+import CallApi from '../../../utils/apies'
 import classNames from 'classnames'
 import AppContextHOC from '../../HOC/AppContextHOC.jsx'
 
@@ -21,46 +21,26 @@ class AuthenticationForm extends React.Component {
       submitting: true,
     })
 
-    fetchApi(
-      `${api_url}/authentication/token/new?api_key=${api_key_movieDB_v3}`
-    )
+    CallApi.get('/authentication/token/new')
       .then((data) => {
-        return fetchApi(
-          `${api_url}/authentication/token/validate_with_login?api_key=${api_key_movieDB_v3}`,
-          {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-              'Content-type': 'application/json',
-            },
-            body: JSON.stringify({
-              username: this.state.username,
-              password: this.state.password,
-              request_token: data.request_token,
-            }),
-          }
-        )
+        return CallApi.post('/authentication/token/validate_with_login', {
+          body: {
+            username: this.state.username,
+            password: this.state.password,
+            request_token: data.request_token,
+          },
+        })
       })
       .then((data) => {
-        return fetchApi(
-          `${api_url}/authentication/session/new?api_key=${api_key_movieDB_v3}`,
-          {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-              'Content-type': 'application/json',
-            },
-            body: JSON.stringify({
-              request_token: data.request_token,
-            }),
-          }
-        )
+        return CallApi.post('/authentication/session/new', {
+          body: { request_token: data.request_token },
+        })
       })
       .then((data) => {
         this.props.updateSessionId(data.session_id)
-        return fetchApi(
-          `${api_url}/account?api_key=${api_key_movieDB_v3}&session_id=${data.session_id}`
-        )
+        return CallApi.get('/account', {
+          params: { session_id: data.session_id },
+        })
       })
       .then((user) => {
         this.setState(

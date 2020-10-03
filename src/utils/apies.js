@@ -1,3 +1,6 @@
+import React from 'react'
+import queryString from 'query-string'
+
 export const api_url = 'https://api.themoviedb.org/3'
 
 export const api_img_url = 'https://image.tmdb.org/t/p/w500'
@@ -19,4 +22,65 @@ export const fetchApi = (url, options = {}) => {
       })
       .catch((response) => response.json().then((error) => reject(error)))
   })
+}
+
+export default class CallApi extends React.Component {
+  static get(url, options = {}) {
+    const { params } = options
+
+    const queryStringParams = {
+      api_key: api_key_movieDB_v3,
+      ...params,
+    }
+
+    return fetchApi(
+      `${api_url}${url}?${queryString.stringify(queryStringParams)}`,
+      {
+        mode: 'cors',
+        headers: {
+          'Content-type': 'application/json',
+        },
+      }
+    )
+  }
+  static post(url, options = {}) {
+    const { params, body } = options
+
+    const queryStringParams = {
+      api_key: api_key_movieDB_v3,
+      ...params,
+    }
+
+    return fetchApi(
+      `${api_url}${url}?${queryString.stringify(queryStringParams)}`,
+      {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      }
+    )
+  }
+  static delete(url, options = {}) {
+    const { params, body } = options
+
+    const queryStringParams = {
+      api_key: api_key_movieDB_v3,
+      ...params,
+    }
+
+    return fetchApi(
+      `${api_url}${url}?${queryString.stringify(queryStringParams)}`,
+      {
+        method: 'DELETE',
+        mode: 'cors',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      }
+    )
+  }
 }

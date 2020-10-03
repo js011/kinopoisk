@@ -36,6 +36,7 @@ export default class App extends React.Component {
         `${api_url}/account?api_key=${api_key_movieDB_v3}&session_id=${session_id}`
       ).then((data) => {
         this.updateUser(data)
+        this.updateSessionId(session_id)
       })
     }
   }
@@ -67,6 +68,15 @@ export default class App extends React.Component {
     })
   }
 
+  onLogOut = () => {
+    cookies.remove('session_id')
+
+    this.setState({
+      session_id: null,
+      user: null,
+    })
+  }
+
   onChangePage = (page) => {
     this.setState({
       page,
@@ -92,6 +102,7 @@ export default class App extends React.Component {
           updateUser: this.updateUser,
           session_id,
           updateSessionId: this.updateSessionId,
+          onLogOut: this.onLogOut,
         }}
       >
         <div className="header">
