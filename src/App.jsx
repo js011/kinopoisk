@@ -2,7 +2,7 @@ import React from 'react'
 import './App.css'
 import Header from './components/Header/Header.jsx'
 import Filters from './components/Filters/Filters.jsx'
-import { api_url, api_key_movieDB_v3, fetchApi } from './utils/apies'
+import CallApi from './utils/apies'
 import Cookies from 'universal-cookie'
 import MoviesList from './components/Movies/MoviesList'
 
@@ -16,26 +16,27 @@ export default class App extends React.Component {
 
     this.initialState = {
       user: null,
-      session_id: '',
+      session_id: null,
+      account_id: null,
       filters: {
         sort_by: 'popularity.desc',
         primary_release_year: new Date().getFullYear(),
         with_genres: [],
       },
       page: 1,
+      total_pages: '',
     }
 
-    this.state = { ...this.initialState, total_pages: '' }
+    this.state = { ...this.initialState }
   }
 
   componentDidMount() {
     const session_id = cookies.get('session_id')
 
     if (session_id) {
-      fetchApi(
-        `${api_url}/account?api_key=${api_key_movieDB_v3}&session_id=${session_id}`
-      ).then((data) => {
+      CallApi.get('/account', { params: { session_id } }).then((data) => {
         this.updateUser(data)
+        this.updateAccountId(data.id)
         this.updateSessionId(session_id)
       })
     }
@@ -68,11 +69,23 @@ export default class App extends React.Component {
     })
   }
 
+  updateAccountId = (account_id) => {
+    cookies.set('account_id', account_id, {
+      path: '/',
+      maxAge: 2592000,
+    })
+    this.setState({
+      account_id,
+    })
+  }
+
   onLogOut = () => {
     cookies.remove('session_id')
+    cookies.remove('account_id')
 
     this.setState({
       session_id: null,
+      account_id: null,
       user: null,
     })
   }
@@ -94,7 +107,14 @@ export default class App extends React.Component {
   }
 
   render() {
-    const { filters, page, total_pages, user, session_id } = this.state
+    const {
+      filters,
+      page,
+      total_pages,
+      user,
+      session_id,
+      account_id,
+    } = this.state
     return (
       <AppContext.Provider
         value={{
@@ -102,6 +122,8 @@ export default class App extends React.Component {
           updateUser: this.updateUser,
           session_id,
           updateSessionId: this.updateSessionId,
+          account_id,
+          updateAccountId: this.updateAccountId,
           onLogOut: this.onLogOut,
         }}
       >
@@ -126,6 +148,8 @@ export default class App extends React.Component {
                 page={page}
                 onChangePage={this.onChangePage}
                 onChangeTotalPages={this.onChangeTotalPages}
+                account_id={account_id}
+                session_id={session_id}
               />
             </div>
           </div>

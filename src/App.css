@@ -14,6 +14,7 @@
 
 .title {
     display: flex;
+    flex-direction: column;
     height: 50px;
     justify-content: center;
     align-items: center;
@@ -22,10 +23,19 @@
 }
 
 .title__name {
+    width: 100%;
     margin: 0px;
     font-size: 24px;
     font-family: 'Open Sans';
     color: whitesmoke;
+}
+
+.title__commonwealth {
+    color: whitesmoke;
+    margin-bottom: 0px;
+    width: 100%;
+    font-size: 14px;
+    padding-left: 5px;
 }
 
 .title__sub-name {
@@ -188,12 +198,12 @@ input.invalid {
 
 .dropdown__popover {
     position: absolute;
-    z-index: 3;
+    z-index: 999;
 }
 
 .dropdown__wrapper-content {
     position: relative;
-    z-index: 4;
+    z-index: 999;
 }
 
 .dropdown__cover {
@@ -202,6 +212,7 @@ input.invalid {
     right: 0px;
     bottom: 0px;
     left: 0px;
+    z-index: 777;
 }
 
 .dropdown__menu {
@@ -246,4 +257,79 @@ input.invalid {
 .dropdown__menu-item:hover {
     background-color: rgba(245, 246, 248, 0.5);
     color: #40506c;
+}
+
+.movie-settings {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    padding: 7px 7px 0px 7px;
+    color: black;
+}
+
+.movie-settings .more-horiz {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    width: 22px;
+    height: 22px;
+    border-radius: 100%;
+    background: rgb(255 255 255 / 50%);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.movie-settings .more-horiz .more-horiz__icon {
+    font-size: 1.2rem;
+}
+
+.movie-settings .more-horiz:hover {
+    background: rgb(255 255 255 / 70%);
+}
+
+.settings-menu {
+    position: relative;
+    width: 200px;
+    background: #fff;
+    box-shadow: 0 1px 2px 0 rgba(64, 80, 108, 0.2),
+        0 0 24px -1px rgba(64, 80, 108, 0.2);
+    border-radius: 8px;
+    z-index: 999;
+}
+
+.settings-menu::after {
+    content: "";
+    position: absolute;
+    right: 24px;
+    top: -14px;
+    border: 7px solid transparent;
+    border-bottom: 7px solid #fff;
+}
+
+.settings-menu .settings-menuItem {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    font-size: 14px;
+    color: #657389;
+    line-height: 1;
+    cursor: pointer;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.settings-menu .settings-menuItem .MuiSvgIcon-root {
+    font-size: 1.3rem;
+}
+
+.settings-menu .settings-menuItem .settings-title {
+    margin-left: 7px;
+    font-size: 14px;
+}
+
+.settings-menu .settings-menuItem:hover {
+    background-color: rgba(245, 246, 248, 0.5);
+    color: #40506c;
+    border-radius: 10px;
 }

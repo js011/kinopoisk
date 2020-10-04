@@ -48,6 +48,7 @@ class AuthenticationForm extends React.Component {
             submitting: false,
           },
           () => {
+            this.props.updateAccountId(user.id)
             this.props.updateUser(user)
           }
         )
