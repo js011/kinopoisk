@@ -36,7 +36,7 @@ class MovieItem extends React.PureComponent {
     } ${movie.release_date.substr(0, 4)}`
     return (
       <div className="movie-card">
-        <Link to={`/movie/${movie.id}`}>
+        <Link to={`/kinopoisk/movie/${movie.id}`}>
           <img
             className="movie-card__img"
             src={
@@ -49,7 +49,7 @@ class MovieItem extends React.PureComponent {
         </Link>
         <div className="movie-card__desc">
           <p className="movie-card__desc__title">
-            <Link to={`/movie/${movie.id}`}>{movie.title}</Link>
+            <Link to={`/kinopoisk/movie/${movie.id}`}>{movie.title}</Link>
           </p>
           <p className="movie-card__desc__release-date">{releaseDate}</p>
         </div>
