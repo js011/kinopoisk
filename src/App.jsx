@@ -126,8 +126,8 @@ export default class App extends React.Component {
             <Header updateSessionId={this.updateSessionId} user={user} />
           </div>
           <div className="main container">
-            <Route exact path="/" component={MoviesPage} />
-            <Route path="/movie/:id" component={MoviePage} />
+            <Route exact path="/kinopoisk/" component={MoviesPage} />
+            <Route path="/kinopoisk/movie/:id" component={MoviePage} />
           </div>
         </AppContext.Provider>
       </BrowserRouter>
