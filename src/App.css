@@ -4,6 +4,15 @@
     padding: 0px;
 }
 
+a {
+    color: inherit !important;
+    text-decoration: none !important;
+}
+
+a:hover {
+    color: goldenrod !important;
+}
+
 .header {
     position: relative;
     width: 100%;

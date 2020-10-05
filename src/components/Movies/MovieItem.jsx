@@ -1,6 +1,7 @@
 import React from 'react'
 import { api_img_url } from '../../utils/apies'
 import { months } from '../../data/months'
+import { Link } from 'react-router-dom'
 import {
   Star,
   StarBorder,
@@ -35,17 +36,21 @@ class MovieItem extends React.PureComponent {
     } ${movie.release_date.substr(0, 4)}`
     return (
       <div className="movie-card">
-        <img
-          className="movie-card__img"
-          src={
-            movie.poster_path
-              ? `${api_img_url}${movie.poster_path}`
-              : `not-foundPoster.png`
-          }
-          alt=""
-        />
+        <Link to={`/movie/${movie.id}`}>
+          <img
+            className="movie-card__img"
+            src={
+              movie.poster_path
+                ? `${api_img_url}${movie.poster_path}`
+                : `not-foundPoster.png`
+            }
+            alt=""
+          />
+        </Link>
         <div className="movie-card__desc">
-          <p className="movie-card__desc__title">{movie.title}</p>
+          <p className="movie-card__desc__title">
+            <Link to={`/movie/${movie.id}`}>{movie.title}</Link>
+          </p>
           <p className="movie-card__desc__release-date">{releaseDate}</p>
         </div>
         <div className="movie-settings">
