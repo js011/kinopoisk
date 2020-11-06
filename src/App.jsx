@@ -6,7 +6,10 @@ import CallApi from './utils/apies'
 import Cookies from 'universal-cookie'
 import MoviesPage from './components/pages/MoviesPage/MoviesPage.jsx'
 import MoviePage from './components/pages/MoviePage/MoviePage.jsx'
-import { actionCreatorUpdateAuth } from './store/actionCreators/actionCreators'
+import {
+  actionCreatorUpdateAuth,
+  actionCreatorLogOut,
+} from './store/actionCreators/actionCreators'
 
 const cookies = new Cookies()
 
@@ -47,12 +50,7 @@ export default class App extends React.Component {
   }
 
   onLogOut = () => {
-    cookies.remove('session_id')
-
-    this.setState({
-      session_id: null,
-      user: null,
-    })
+    this.props.store.dispatch(actionCreatorLogOut())
   }
 
   onChangePage = (page) => {
