@@ -22,7 +22,7 @@ class User extends React.Component {
             render={(toggleShow) => (
               <img
                 className="user-img rounded-circle"
-                src={`https://secure.gravatar.com/avatar/${user.avatar.gravatar.hash}.jpg?s=64`}
+                src={`https://image.tmdb.org/t/p/w500${user.avatar.tmdb.avatar_path}`}
                 alt=""
                 onClick={toggleShow}
               />

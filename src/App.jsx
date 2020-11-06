@@ -6,39 +6,22 @@ import CallApi from './utils/apies'
 import Cookies from 'universal-cookie'
 import MoviesPage from './components/pages/MoviesPage/MoviesPage.jsx'
 import MoviePage from './components/pages/MoviePage/MoviePage.jsx'
+import { actionCreatorUpdateAuth } from './store/actionCreators/actionCreators'
 
 const cookies = new Cookies()
 
 export const AppContext = React.createContext()
 
 export default class App extends React.Component {
-  constructor() {
-    super()
-
-    this.initialState = {
-      user: null,
-      session_id: null,
-      account_id: null,
-      filters: {
-        sort_by: 'popularity.desc',
-        primary_release_year: new Date().getFullYear(),
-        with_genres: [],
-      },
-      page: 1,
-      total_pages: '',
-    }
-
-    this.state = { ...this.initialState }
-  }
-
   componentDidMount() {
+    this.props.store.subscribe(() => {
+      console.log(this.props.store.getState())
+      this.forceUpdate()
+    })
     const session_id = cookies.get('session_id')
-
     if (session_id) {
       CallApi.get('/account', { params: { session_id } }).then((data) => {
-        this.updateUser(data)
-        this.updateAccountId(data.id)
-        this.updateSessionId(session_id)
+        this.updateSessionId(session_id, data)
       })
     }
   }
@@ -54,39 +37,20 @@ export default class App extends React.Component {
     }))
   }
 
-  updateUser = (user) => {
-    this.setState({
-      user,
-    })
-  }
-
-  updateSessionId = (session_id) => {
-    cookies.set('session_id', session_id, {
-      path: '/',
-      maxAge: 2592000,
-    })
-    this.setState({
-      session_id,
-    })
-  }
-
-  updateAccountId = (account_id) => {
-    cookies.set('account_id', account_id, {
-      path: '/',
-      maxAge: 2592000,
-    })
-    this.setState({
-      account_id,
-    })
+  updateSessionId = (session_id, user) => {
+    this.props.store.dispatch(
+      actionCreatorUpdateAuth({
+        session_id,
+        user,
+      })
+    )
   }
 
   onLogOut = () => {
     cookies.remove('session_id')
-    cookies.remove('account_id')
 
     this.setState({
       session_id: null,
-      account_id: null,
       user: null,
     })
   }
@@ -108,17 +72,14 @@ export default class App extends React.Component {
   }
 
   render() {
-    const { user, session_id, account_id } = this.state
+    const { user, session_id } = this.props.store.getState()
     return (
       <BrowserRouter>
         <AppContext.Provider
           value={{
             user,
-            updateUser: this.updateUser,
             session_id,
             updateSessionId: this.updateSessionId,
-            account_id,
-            updateAccountId: this.updateAccountId,
             onLogOut: this.onLogOut,
           }}
         >

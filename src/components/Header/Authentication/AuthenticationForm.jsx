@@ -2,6 +2,9 @@ import React from 'react'
 import CallApi from '../../../utils/apies'
 import classNames from 'classnames'
 import AppContextHOC from '../../HOC/AppContextHOC.jsx'
+import Cookies from 'universal-cookie'
+
+const cookies = new Cookies()
 
 class AuthenticationForm extends React.Component {
   constructor() {
@@ -37,7 +40,10 @@ class AuthenticationForm extends React.Component {
         })
       })
       .then((data) => {
-        this.props.updateSessionId(data.session_id)
+        cookies.set('session_id', data.session_id, {
+          path: '/',
+          maxAge: 2592000,
+        })
         return CallApi.get('/account', {
           params: { session_id: data.session_id },
         })
@@ -48,8 +54,7 @@ class AuthenticationForm extends React.Component {
             submitting: false,
           },
           () => {
-            this.props.updateAccountId(user.id)
-            this.props.updateUser(user)
+            this.props.updateSessionId(cookies.get('session_id'), user)
           }
         )
       })

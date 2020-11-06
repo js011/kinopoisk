@@ -5,6 +5,11 @@ import App from './App.jsx'
 import * as serviceWorker from './serviceWorker'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import WebFont from 'webfontloader'
+import store from './store/store'
+// import {
+//   actionCreatorUpdateAuth,
+//   actionCreatorLogOut,
+// } from './store/actionCreators/actionCreators'
 
 WebFont.load({
   google: {
@@ -12,9 +17,19 @@ WebFont.load({
   },
 })
 
-ReactDOM.render(<App />, document.getElementById('kinopoisk'))
+// store.subscribe(() => {
+//   console.log(store.getState())
+// })
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
+// store.dispatch(
+//   actionCreatorUpdateAuth({
+//     user: { name: 'Vadim' },
+//     session_id: 12321031,
+//   })
+// )
+
+// store.dispatch(actionCreatorLogOut())
+
+ReactDOM.render(<App store={store} />, document.getElementById('kinopoisk'))
+
 serviceWorker.unregister()
