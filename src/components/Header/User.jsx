@@ -1,19 +1,20 @@
 import React from 'react'
-import AppContextHOC from '../HOC/AppContextHOC.jsx'
+import { withAuth } from '../../hoc/WithAuth.jsx'
 import UIDropdown from '../UI Components/UIDropdown.jsx'
 import CallApi from '../../utils/apies'
 
 class User extends React.Component {
   handleLogOut = () => {
+    const { auth, authActions } = this.props
     CallApi.delete('/authentication/session', {
-      body: { session_id: this.props.session_id },
+      body: { session_id: auth.session_id },
     }).then(() => {
-      this.props.onLogOut()
+      authActions.onLogOut()
     })
   }
 
   render() {
-    const { user } = this.props
+    const { user } = this.props.auth
     return (
       <div className="user">
         <div className="dropdown">
@@ -51,4 +52,4 @@ class User extends React.Component {
   }
 }
 
-export default AppContextHOC(User)
+export default withAuth(User)

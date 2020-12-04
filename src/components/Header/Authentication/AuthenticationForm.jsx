@@ -1,7 +1,7 @@
 import React from 'react'
 import CallApi from '../../../utils/apies'
 import classNames from 'classnames'
-import AppContextHOC from '../../HOC/AppContextHOC.jsx'
+import { withAuth } from '../../../hoc/WithAuth.jsx'
 import Cookies from 'universal-cookie'
 
 const cookies = new Cookies()
@@ -54,7 +54,7 @@ class AuthenticationForm extends React.Component {
             submitting: false,
           },
           () => {
-            this.props.updateAuth({
+            this.props.authActions.updateAuth({
               user,
               session_id: cookies.get('session_id'),
             })
@@ -207,4 +207,4 @@ class AuthenticationForm extends React.Component {
   }
 }
 
-export default AppContextHOC(AuthenticationForm)
+export default withAuth(AuthenticationForm)

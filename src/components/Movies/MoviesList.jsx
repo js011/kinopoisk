@@ -1,6 +1,6 @@
 import React from 'react'
 import MovieItem from './MovieItem.jsx'
-import MoviesHOC from '../HOC/MoviesHOC.jsx'
+import MoviesHOC from './MoviesHOC.jsx'
 import PropTypes from 'prop-types'
 
 class MoviesList extends React.PureComponent {

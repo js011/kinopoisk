@@ -10,7 +10,7 @@ import {
   MoreHoriz,
 } from '@material-ui/icons'
 import UIDropdown from '../UI Components/UIDropdown.jsx'
-import AppContextHOC from '../HOC/AppContextHOC.jsx'
+import { withAuth } from '../../hoc/WithAuth.jsx'
 
 class MovieItem extends React.PureComponent {
   constructor() {
@@ -89,4 +89,4 @@ class MovieItem extends React.PureComponent {
   }
 }
 
-export default AppContextHOC(MovieItem)
+export default withAuth(MovieItem)
