@@ -1,6 +1,5 @@
-import Cookies from 'universal-cookie'
 import * as types from './auth.types'
-const cookies = new Cookies()
+import { cookies } from '../../utils/cookies'
 
 const initialState = {
   user: null,
@@ -12,10 +11,6 @@ const initialState = {
 export default function authReducer(state = initialState, action) {
   switch (action.type) {
     case types.UPDATE_AUTH:
-      cookies.set('session_id', action.payload.session_id, {
-        path: '/',
-        maxAge: 2592000,
-      })
       return {
         ...state,
         user: action.payload.user,
@@ -24,7 +19,6 @@ export default function authReducer(state = initialState, action) {
         showUserModal: false,
       }
     case types.LOGOUT:
-      cookies.remove('session_id')
       return {
         ...state,
         user: null,
