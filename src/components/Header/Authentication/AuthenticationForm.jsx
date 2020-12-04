@@ -54,7 +54,10 @@ class AuthenticationForm extends React.Component {
             submitting: false,
           },
           () => {
-            this.props.updateSessionId(cookies.get('session_id'), user)
+            this.props.updateAuth({
+              user,
+              session_id: cookies.get('session_id'),
+            })
           }
         )
       })

@@ -10,18 +10,8 @@ export default class UIDropdown extends React.Component {
     },
   }
 
-  constructor() {
-    super()
-
-    this.state = {
-      show: false,
-    }
-  }
-
   toggleShow = () => {
-    this.setState((prevState) => ({
-      show: !prevState.show,
-    }))
+    this.props.toggleUserModal(this.props.showUserModal)
   }
 
   render() {
@@ -29,7 +19,7 @@ export default class UIDropdown extends React.Component {
       <>
         {this.props.render(this.toggleShow)}
         <div className="dropdown__wrapper">
-          {this.state.show && (
+          {this.props.showUserModal && (
             <div
               className="dropdown__popover"
               style={{ ...this.props.position }}

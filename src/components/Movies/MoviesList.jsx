@@ -1,6 +1,6 @@
 import React from 'react'
 import MovieItem from './MovieItem.jsx'
-import MoviesHOC from './MoviesHOC.jsx'
+import MoviesHOC from '../HOC/MoviesHOC.jsx'
 import PropTypes from 'prop-types'
 
 class MoviesList extends React.PureComponent {
@@ -18,8 +18,6 @@ class MoviesList extends React.PureComponent {
         {this.props.movies.map((movie) => {
           return (
             <MovieItem
-              account_id={this.props.account_id}
-              session_id={this.props.session_id}
               movie={movie}
               favouriteMovies={this.props.favouriteMovies}
               watchList={this.props.watchList}

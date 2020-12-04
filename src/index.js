@@ -1,15 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
 import './index.css'
 import App from './App.jsx'
 import * as serviceWorker from './serviceWorker'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import WebFont from 'webfontloader'
-import store from './store/store'
-// import {
-//   actionCreatorUpdateAuth,
-//   actionCreatorLogOut,
-// } from './store/actionCreators/actionCreators'
+import store from './redux/store'
 
 WebFont.load({
   google: {
@@ -17,19 +14,11 @@ WebFont.load({
   },
 })
 
-// store.subscribe(() => {
-//   console.log(store.getState())
-// })
-
-// store.dispatch(
-//   actionCreatorUpdateAuth({
-//     user: { name: 'Vadim' },
-//     session_id: 12321031,
-//   })
-// )
-
-// store.dispatch(actionCreatorLogOut())
-
-ReactDOM.render(<App store={store} />, document.getElementById('kinopoisk'))
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('kinopoisk')
+)
 
 serviceWorker.unregister()

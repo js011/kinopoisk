@@ -1,88 +1,50 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import './App.css'
 import Header from './components/Header/Header.jsx'
 import { BrowserRouter, Route } from 'react-router-dom'
-import CallApi from './utils/apies'
-import Cookies from 'universal-cookie'
 import MoviesPage from './components/pages/MoviesPage/MoviesPage.jsx'
 import MoviePage from './components/pages/MoviePage/MoviePage.jsx'
 import {
-  actionCreatorUpdateAuth,
-  actionCreatorLogOut,
-} from './store/actionCreators/actionCreators'
-
-const cookies = new Cookies()
+  updateAuth,
+  onLogOut,
+  toggleUserModal,
+  fetchAuth,
+} from './redux/auth/auth.actions'
 
 export const AppContext = React.createContext()
 
-export default class App extends React.Component {
+class App extends React.Component {
   componentDidMount() {
-    this.props.store.subscribe(() => {
-      console.log(this.props.store.getState())
-      this.forceUpdate()
-    })
-    const session_id = cookies.get('session_id')
+    const { session_id, fetchAuth } = this.props
     if (session_id) {
-      CallApi.get('/account', { params: { session_id } }).then((data) => {
-        this.updateSessionId(session_id, data)
-      })
+      fetchAuth(session_id)
     }
   }
 
-  onChangeFilters = (e) => {
-    const { name, value } = e.target
-
-    this.setState((s) => ({
-      filters: {
-        ...s.filters,
-        [name]: value,
-      },
-    }))
-  }
-
-  updateSessionId = (session_id, user) => {
-    this.props.store.dispatch(
-      actionCreatorUpdateAuth({
-        session_id,
-        user,
-      })
-    )
-  }
-
-  onLogOut = () => {
-    this.props.store.dispatch(actionCreatorLogOut())
-  }
-
-  onChangePage = (page) => {
-    this.setState({
-      page,
-    })
-  }
-
-  onChangeTotalPages = (total_pages) => {
-    this.setState({
-      total_pages,
-    })
-  }
-
-  resetFilters = () => {
-    this.setState(this.initialState)
-  }
-
   render() {
-    const { user, session_id } = this.props.store.getState()
+    const {
+      user,
+      session_id,
+      updateAuth,
+      onLogOut,
+      showUserModal,
+      toggleUserModal,
+    } = this.props
     return (
       <BrowserRouter>
         <AppContext.Provider
           value={{
             user,
             session_id,
-            updateSessionId: this.updateSessionId,
-            onLogOut: this.onLogOut,
+            updateAuth,
+            onLogOut,
+            showUserModal,
+            toggleUserModal,
           }}
         >
           <div className="header">
-            <Header updateSessionId={this.updateSessionId} user={user} />
+            <Header updateAuth={updateAuth} user={user} />
           </div>
           <div className="main container">
             <Route exact path="/kinopoisk/" component={MoviesPage} />
@@ -93,3 +55,22 @@ export default class App extends React.Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  const { auth } = state
+  return {
+    user: auth.user,
+    session_id: auth.session_id,
+    isAuth: auth.isAuth,
+    showUserModal: auth.showUserModal,
+  }
+}
+
+const mapDispatchToProps = {
+  updateAuth,
+  onLogOut,
+  toggleUserModal,
+  fetchAuth,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

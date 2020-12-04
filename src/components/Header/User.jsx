@@ -14,7 +14,6 @@ class User extends React.Component {
 
   render() {
     const { user } = this.props
-
     return (
       <div className="user">
         <div className="dropdown">
@@ -22,12 +21,16 @@ class User extends React.Component {
             render={(toggleShow) => (
               <img
                 className="user-img rounded-circle"
-                src={`https://image.tmdb.org/t/p/w500${user.avatar.tmdb.avatar_path}`}
+                src={
+                  `https://image.tmdb.org/t/p/w500${user.avatar.tmdb.avatar_path}` ||
+                  `https://secure.gravatar.com/avatar/${user.avatar.gravatar.hash}.jpg?s=64`
+                }
                 alt=""
                 onClick={toggleShow}
               />
             )}
             position={{ right: '2.5px', top: '50px' }}
+            {...this.props}
           >
             {() => {
               return (

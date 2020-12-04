@@ -10,6 +10,7 @@ import {
   MoreHoriz,
 } from '@material-ui/icons'
 import UIDropdown from '../UI Components/UIDropdown.jsx'
+import AppContextHOC from '../HOC/AppContextHOC.jsx'
 
 class MovieItem extends React.PureComponent {
   constructor() {
@@ -53,7 +54,7 @@ class MovieItem extends React.PureComponent {
           </p>
           <p className="movie-card__desc__release-date">{releaseDate}</p>
         </div>
-        <div className="movie-settings">
+        {/* <div className="movie-settings">
           <UIDropdown
             render={(toggleShow) => (
               <div className="more-horiz" onClick={toggleShow}>
@@ -61,6 +62,7 @@ class MovieItem extends React.PureComponent {
               </div>
             )}
             position={{ top: '30px', left: '-180px' }}
+            {...this.props}
           >
             {(toggleShow) => (
               <div className="settings-menu">
@@ -81,10 +83,10 @@ class MovieItem extends React.PureComponent {
               </div>
             )}
           </UIDropdown>
-        </div>
+        </div> */}
       </div>
     )
   }
 }
 
-export default MovieItem
+export default AppContextHOC(MovieItem)
