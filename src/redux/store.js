@@ -8,13 +8,15 @@ import rootReducer from '../redux/rootReducer'
 const updateCookies = () => (next) => (action) => {
   if (action.type === UPDATE_AUTH) {
     cookies.set('session_id', action.payload.session_id, {
-      path: '/kinopoisk/',
+      path: '/',
       maxAge: 2592000,
     })
   }
   if (action.type === LOGOUT) {
     console.log('LOGOUT')
-    cookies.remove('session_id')
+    cookies.remove('session_id', {
+      path: '/',
+    })
   }
   return next(action)
 }
