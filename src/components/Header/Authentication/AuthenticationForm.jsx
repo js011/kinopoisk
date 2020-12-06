@@ -20,6 +20,8 @@ class AuthenticationForm extends React.Component {
   }
 
   getUser = () => {
+    const { authActions, moviesActions } = this.props
+
     this.setState({
       submitting: true,
     })
@@ -54,9 +56,17 @@ class AuthenticationForm extends React.Component {
             submitting: false,
           },
           () => {
-            this.props.authActions.updateAuth({
+            authActions.updateAuth({
               user,
               session_id: cookies.get('session_id'),
+            })
+            moviesActions.fetchFavouriteMovies({
+              session_id: cookies.get('session_id'),
+              account_id: user.id,
+            })
+            moviesActions.fetchWatchlist({
+              session_id: cookies.get('session_id'),
+              account_id: user.id,
             })
           }
         )

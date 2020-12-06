@@ -1,6 +1,4 @@
 import React from 'react'
-import { api_img_url } from '../../utils/apies'
-import { months } from '../../data/months'
 import { Link } from 'react-router-dom'
 import {
   Star,
@@ -9,7 +7,8 @@ import {
   BookmarkBorder,
   MoreHoriz,
 } from '@material-ui/icons'
-import UIDropdown from '../UI Components/UIDropdown.jsx'
+import { api_img_url } from '../../utils/apies'
+import { months } from '../../data/months'
 import { withAuth } from '../../hoc/WithAuth.jsx'
 
 class MovieItem extends React.PureComponent {
@@ -17,10 +16,11 @@ class MovieItem extends React.PureComponent {
     super()
 
     this.state = {
+      showMovieModal: false,
       favourite: false,
-      willWatch: false,
     }
   }
+
   getMonthNameOnMonthNumber = () => {
     const { movie } = this.props
 
@@ -29,12 +29,56 @@ class MovieItem extends React.PureComponent {
     })
   }
 
-  render() {
+  toogleMovieModal = () => {
+    this.setState((state) => ({
+      showMovieModal: !state.showMovieModal,
+    }))
+  }
+
+  updateFavouriteMovies = () => {
+    const { movie, auth, moviesActions } = this.props
+
+    moviesActions.updateFavouriteMovies({
+      account_id: auth.account_id,
+      session_id: auth.session_id,
+      media_id: movie.id,
+    })
+
+    this.toogleMovieModal()
+  }
+
+  updateWatchlist = () => {
+    const { movie, auth, moviesActions } = this.props
+
+    moviesActions.updateWatchlist({
+      account_id: auth.account_id,
+      session_id: auth.session_id,
+      media_id: movie.id,
+    })
+
+    this.toogleMovieModal()
+  }
+
+  forEachFavouriteMoviesOrWatchlist = (moviesArr) => {
     const { movie } = this.props
+    let starMovie = false
+
+    moviesArr.forEach((item) => {
+      if (item.id === movie.id) {
+        starMovie = true
+      }
+    })
+
+    return starMovie
+  }
+
+  render() {
+    const { movie, movies } = this.props
 
     const releaseDate = `${movie.release_date.substr(8, 2)} ${
       this.getMonthNameOnMonthNumber()[0].shortName
     } ${movie.release_date.substr(0, 4)}`
+
     return (
       <div className="movie-card">
         <Link to={`/kinopoisk/movie/${movie.id}`}>
@@ -49,41 +93,54 @@ class MovieItem extends React.PureComponent {
           />
         </Link>
         <div className="movie-card__desc">
+          <p className="movie-card__desc__vote-average">
+            {String(movie.vote_average).length === 1
+              ? `${movie.vote_average}.0`
+              : movie.vote_average}
+          </p>
           <p className="movie-card__desc__title">
             <Link to={`/kinopoisk/movie/${movie.id}`}>{movie.title}</Link>
           </p>
           <p className="movie-card__desc__release-date">{releaseDate}</p>
         </div>
-        {/* <div className="movie-settings">
-          <UIDropdown
-            render={(toggleShow) => (
-              <div className="more-horiz" onClick={toggleShow}>
-                <MoreHoriz className="more-horiz__icon" />
-              </div>
-            )}
-            position={{ top: '30px', left: '-180px' }}
-            {...this.props}
-          >
-            {(toggleShow) => (
+        <div className="movie-settings">
+          <div className="movie-settings__wrapper">
+            <div className="more-horiz">
+              <MoreHoriz
+                className="more-horiz__icon"
+                onClick={this.toogleMovieModal}
+              />
+            </div>
+            {this.state.showMovieModal && (
               <div className="settings-menu">
                 <div
                   className="favourite-movie settings-menuItem"
-                  onClick={toggleShow}
+                  onClick={this.updateFavouriteMovies}
                 >
-                  {this.state.favourite ? <Star /> : <StarBorder />}
+                  {this.forEachFavouriteMoviesOrWatchlist(
+                    movies.favouriteMovies
+                  ) ? (
+                    <Star />
+                  ) : (
+                    <StarBorder />
+                  )}
                   <span className="settings-title">Избранное</span>
                 </div>
                 <div
                   className="willWatch-movie settings-menuItem"
-                  onClick={toggleShow}
+                  onClick={this.updateWatchlist}
                 >
-                  {this.state.willWatch ? <Bookmark /> : <BookmarkBorder />}
+                  {this.forEachFavouriteMoviesOrWatchlist(movies.watchlist) ? (
+                    <Bookmark />
+                  ) : (
+                    <BookmarkBorder />
+                  )}
                   <span className="settings-title">Посмотреть</span>
                 </div>
               </div>
             )}
-          </UIDropdown>
-        </div> */}
+          </div>
+        </div>
       </div>
     )
   }

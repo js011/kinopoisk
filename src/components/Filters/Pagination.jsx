@@ -1,6 +1,7 @@
 import React from 'react'
+import { withAuth } from '../../hoc/WithAuth.jsx'
 
-export default class Pagination extends React.Component {
+class Pagination extends React.Component {
   render() {
     const { onChangePage, page, total_pages } = this.props
     return (
@@ -26,3 +27,5 @@ export default class Pagination extends React.Component {
     )
   }
 }
+
+export default withAuth(Pagination)

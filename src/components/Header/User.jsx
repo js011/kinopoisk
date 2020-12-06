@@ -5,11 +5,12 @@ import CallApi from '../../utils/apies'
 
 class User extends React.Component {
   handleLogOut = () => {
-    const { auth, authActions } = this.props
+    const { auth, authActions, moviesActions } = this.props
     CallApi.delete('/authentication/session', {
       body: { session_id: auth.session_id },
     }).then(() => {
       authActions.onLogOut()
+      moviesActions.clearFavouriteMoviesAndWatchList()
     })
   }
 

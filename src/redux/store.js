@@ -5,7 +5,7 @@ import { UPDATE_AUTH, LOGOUT } from './auth/auth.types'
 import { cookies } from '../utils/cookies'
 import rootReducer from '../redux/rootReducer'
 
-const updateCookies = () => (next) => (action) => {
+const updateCookies = ({ dispatch, getState }) => (next) => (action) => {
   if (action.type === UPDATE_AUTH) {
     cookies.set('session_id', action.payload.session_id, {
       path: '/',

@@ -37,3 +37,10 @@ export const toggleUserModal = (movies) => {
     payload: movies,
   }
 }
+
+export const toggleAuthFormModal = (show) => {
+  return {
+    type: types.TOGGLE_AUTH_FORM_MODAL,
+    payload: show,
+  }
+}

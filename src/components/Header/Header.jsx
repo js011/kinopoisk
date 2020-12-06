@@ -1,10 +1,11 @@
 import React from 'react'
 import Authentication from './Authentication/Authentication.jsx'
 import User from './User.jsx'
+import { withAuth } from '../../hoc/WithAuth.jsx'
 
 class Header extends React.Component {
   render() {
-    const { user } = this.props
+    const { auth, authActions } = this.props
     return (
       <div className="container">
         <div className="pt-3 pb-3 row col-12">
@@ -15,7 +16,14 @@ class Header extends React.Component {
           </div>
           <div className="search col-8"></div>
           <div className="login col-2">
-            {user ? <User /> : <Authentication />}
+            {auth.user ? (
+              <User />
+            ) : (
+              <Authentication
+                showAuthFormModal={auth.showAuthFormModal}
+                toggleAuthFormModal={authActions.toggleAuthFormModal}
+              />
+            )}
           </div>
         </div>
       </div>
@@ -23,4 +31,4 @@ class Header extends React.Component {
   }
 }
 
-export default Header
+export default withAuth(Header)

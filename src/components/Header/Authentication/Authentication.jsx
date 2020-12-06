@@ -3,21 +3,13 @@ import { Modal, ModalBody } from 'reactstrap'
 import AuthenticationForm from './AuthenticationForm.jsx'
 
 export default class Authentication extends React.Component {
-  constructor() {
-    super()
-
-    this.state = {
-      showModal: false,
-    }
-  }
-
   toggleModal = () => {
-    this.setState((prevState) => ({
-      showModal: !prevState.showModal,
-    }))
+    const { showAuthFormModal, toggleAuthFormModal } = this.props
+    toggleAuthFormModal(!showAuthFormModal)
   }
 
   render() {
+    const { showAuthFormModal } = this.props
     return (
       <>
         <button
@@ -27,7 +19,7 @@ export default class Authentication extends React.Component {
         >
           Войти
         </button>
-        <Modal isOpen={this.state.showModal} toggle={this.toggleModal}>
+        <Modal isOpen={showAuthFormModal} toggle={this.toggleModal}>
           <ModalBody>
             <AuthenticationForm />
           </ModalBody>

@@ -8,18 +8,27 @@ import { withAuth } from './hoc/WithAuth.jsx'
 
 class App extends React.Component {
   componentDidMount() {
-    const { auth, authActions } = this.props
+    const { auth, authActions, moviesActions } = this.props
     if (auth.session_id) {
       authActions.fetchAuth(auth.session_id)
+      moviesActions.fetchFavouriteMovies({
+        session_id: auth.session_id,
+        account_id: auth.account_id,
+      })
+      moviesActions.fetchWatchlist({
+        session_id: auth.session_id,
+        account_id: auth.account_id,
+      })
+    } else {
+      authActions.toggleAuthFormModal(true)
     }
   }
 
   render() {
-    const { auth, authActions } = this.props
     return (
       <BrowserRouter>
         <div className="header">
-          <Header updateAuth={authActions.updateAuth} user={auth.user} />
+          <Header />
         </div>
         <div className="main container">
           <Route exact path="/kinopoisk/" component={MoviesPage} />

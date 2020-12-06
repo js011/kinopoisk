@@ -12,7 +12,7 @@ export default class UIDropdown extends React.Component {
 
   toggleShow = () => {
     const { auth, authActions } = this.props
-    authActions.toggleUserModal(auth.showUserModal)
+    authActions.toggleUserModal(!auth.showUserModal)
   }
 
   render() {

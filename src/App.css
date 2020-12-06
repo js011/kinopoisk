@@ -88,7 +88,7 @@ a:hover {
     width: 200px;
     max-width: 200px;
     height: auto;
-    max-height: 365px;
+    max-height: 375px;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -110,7 +110,7 @@ a:hover {
 .movie-card__desc {
     position: relative;
     width: 100%;
-    height: 65px;
+    height: 75px;
     padding: 0px 10px;
 }
 
@@ -121,7 +121,7 @@ a:hover {
     white-space: nowrap;
     text-overflow: ellipsis;
     font-weight: bold;
-    margin-top: 8px;
+    margin-top: 15px;
     margin-bottom: 0px;
 }
 
@@ -346,4 +346,39 @@ input.invalid {
     background-color: rgba(245, 246, 248, 0.5);
     color: #40506c;
     border-radius: 10px;
+}
+
+.movie-settings__wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.movie-settings__wrapper .more-horiz {
+    margin-bottom: 11px;
+    margin-right: 4px;
+    margin-top: 2px;
+}
+
+.movie-settings__wrapper .settings-menu::after {
+    right: 10px;
+}
+
+.movie-card__desc__vote-average {
+    position: absolute;
+    margin: 0px;
+    width: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 35px;
+    top: -22px;
+    left: 17px;
+    color: white;
+    box-sizing: border-box;
+    padding: 0px;
+    border-radius: 100%;
+    background: #24242c;
+    font-size: 15px;
 }
