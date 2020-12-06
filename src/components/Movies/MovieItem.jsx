@@ -30,9 +30,14 @@ class MovieItem extends React.PureComponent {
   }
 
   toogleMovieModal = () => {
-    this.setState((state) => ({
-      showMovieModal: !state.showMovieModal,
-    }))
+    const { auth, authActions } = this.props
+    if (auth.session_id) {
+      this.setState((state) => ({
+        showMovieModal: !state.showMovieModal,
+      }))
+    } else {
+      authActions.toggleAuthFormModal(true)
+    }
   }
 
   updateFavouriteMovies = () => {
