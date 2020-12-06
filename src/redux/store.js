@@ -8,7 +8,7 @@ import rootReducer from '../redux/rootReducer'
 const updateCookies = () => (next) => (action) => {
   if (action.type === UPDATE_AUTH) {
     cookies.set('session_id', action.payload.session_id, {
-      path: '/',
+      path: '/kinopoisk/',
       maxAge: 2592000,
     })
   }
