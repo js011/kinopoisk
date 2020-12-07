@@ -5,7 +5,7 @@ export const fetchAuth = (session_id) => (dispatch) => {
   dispatch({
     type: types.FETCH_REQUEST_AUTH,
   })
-  CallApi.get('/account', { params: { session_id } })
+  CallApi.get('/account', { params: { session_id, language: 'ru-RU' } })
     .then((user) => {
       dispatch(updateAuth({ user, session_id }))
     })

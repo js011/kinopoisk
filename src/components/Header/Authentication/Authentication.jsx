@@ -19,6 +19,15 @@ export default class Authentication extends React.Component {
         >
           Войти
         </button>
+        <button className="ml-2 btn btn-outline-warning" type="button">
+          <a
+            href="https://www.themoviedb.org/signup"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Регистрация
+          </a>
+        </button>
         <Modal isOpen={showAuthFormModal} toggle={this.toggleModal}>
           <ModalBody>
             <AuthenticationForm />

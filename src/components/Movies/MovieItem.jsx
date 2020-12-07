@@ -92,7 +92,7 @@ class MovieItem extends React.PureComponent {
             src={
               movie.poster_path
                 ? `${api_img_url}${movie.poster_path}`
-                : `not-foundPoster.png`
+                : `/kinopoisk/images/not-foundPoster.png`
             }
             alt=""
           />

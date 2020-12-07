@@ -9,9 +9,6 @@ export default (Component) =>
 
       this.state = {
         movies: [],
-        favouriteMovies: [],
-        watchList: [],
-        firstRender: true,
       }
     }
 
@@ -21,42 +18,15 @@ export default (Component) =>
     }
 
     componentDidUpdate(p) {
-      const { onChangePage, filters, page, account_id, session_id } = this.props
-      const { firstRender } = this.state
+      const { onChangePage, filters, page } = this.props
 
       if (!_.isEqual(p.filters, filters)) {
         onChangePage(1)
         this.getMovies(filters)
-        if (account_id && session_id) {
-          this.getSettingsMovies('favouriteMovies', '/favorite/movies')
-          this.getSettingsMovies('watchList', '/watchlist/movies')
-        } else {
-          this.setState({
-            favouriteMovies: [],
-            watchList: [],
-          })
-        }
       }
 
       if (p.page !== page) {
         this.getMovies(filters, page)
-        if (account_id && session_id) {
-          this.getSettingsMovies('favouriteMovies', '/favorite/movies')
-          this.getSettingsMovies('watchList', '/watchlist/movies')
-        } else {
-          this.setState({
-            favouriteMovies: [],
-            watchList: [],
-          })
-        }
-      }
-
-      if (firstRender && account_id && session_id) {
-        this.getSettingsMovies('favouriteMovies', '/favorite/movies')
-        this.getSettingsMovies('watchList', '/watchlist/movies')
-        this.setState({
-          firstRender: false,
-        })
       }
     }
 

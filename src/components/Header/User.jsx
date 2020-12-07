@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { withAuth } from '../../hoc/WithAuth.jsx'
 import UIDropdown from '../UI Components/UIDropdown.jsx'
 import CallApi from '../../utils/apies'
@@ -37,11 +38,16 @@ class User extends React.Component {
             {() => {
               return (
                 <div className="dropdown__menu">
-                  <div
-                    className="dropdown__menu-item"
-                    onClick={this.handleLogOut}
-                  >
-                    Выйти
+                  <div className="dropdown__menu-item user-name">
+                    {user.name || user.username}
+                    <Link to={`/kinopoisk/profile/${user.id}`}>
+                      <p className="user-name__sub-title">Смотреть профиль</p>
+                    </Link>
+                  </div>
+                  <div className="dropdown__menu-item">
+                    <Link to={'/kinopoisk/'} onClick={this.handleLogOut}>
+                      Выйти
+                    </Link>
                   </div>
                 </div>
               )

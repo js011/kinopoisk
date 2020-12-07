@@ -13,7 +13,6 @@ const updateCookies = () => (next) => (action) => {
     })
   }
   if (action.type === LOGOUT) {
-    console.log('LOGOUT')
     cookies.remove('session_id', {
       path: '/',
     })

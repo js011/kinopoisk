@@ -4,6 +4,7 @@ import Header from './components/Header/Header.jsx'
 import { BrowserRouter, Route } from 'react-router-dom'
 import MoviesPage from './components/pages/MoviesPage/MoviesPage.jsx'
 import MoviePage from './components/pages/MoviePage/MoviePage.jsx'
+import UserPage from './components/pages/UserPage/UserPage.jsx'
 import { withAuth } from './hoc/WithAuth.jsx'
 
 class App extends React.Component {
@@ -30,10 +31,12 @@ class App extends React.Component {
         <div className="header">
           <Header />
         </div>
+        <Route path="/kinopoisk/profile/:id" render={() => <UserPage />} />
         <div className="main container">
           <Route exact path="/kinopoisk/" component={MoviesPage} />
           <Route path="/kinopoisk/movie/:id" component={MoviePage} />
         </div>
+        <div className="footer"></div>
       </BrowserRouter>
     )
   }
