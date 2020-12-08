@@ -11,9 +11,9 @@ class AuthenticationForm extends React.Component {
     super()
 
     this.state = {
-      username: '',
-      password: '',
-      repeatPassword: '',
+      username: 'user_kinopoisk',
+      password: 'user_1234',
+      repeatPassword: 'user_1234',
       submitting: false,
       errors: {},
     }
