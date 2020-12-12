@@ -26,7 +26,6 @@ class App extends React.Component {
   }
 
   render() {
-    const { movies, moviesActions, auth } = this.props
     return (
       <BrowserRouter>
         <div className="header">
@@ -34,17 +33,7 @@ class App extends React.Component {
         </div>
         <Route exact path="/kinopoisk/" component={MoviesPage} />
         <Route path="/kinopoisk/profile/:id" component={UserPage} />
-        <Route
-          path="/kinopoisk/movie/:id"
-          render={(params) => (
-            <MoviePage
-              {...params}
-              movies={movies}
-              moviesActions={moviesActions}
-              auth={auth}
-            />
-          )}
-        />
+        <Route path="/kinopoisk/movie/:id" component={MoviePage} />
         <div className="footer"></div>
       </BrowserRouter>
     )

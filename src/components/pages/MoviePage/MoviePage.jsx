@@ -3,10 +3,11 @@ import { TabContent, Nav, NavItem } from 'reactstrap'
 import { Route, Switch, NavLink } from 'react-router-dom'
 import CallApi from '../../../utils/apies'
 import { MovieHeader } from './MovieHeader.jsx'
+import { withAuth } from '../../../hoc/WithAuth.jsx'
 import MovieMedia from './Tabs/MovieMedia.jsx'
 import MovieActors from './Tabs/MovieActors.jsx'
 
-export default class MoviePage extends React.Component {
+class MoviePage extends React.Component {
   constructor() {
     super()
 
@@ -25,16 +26,11 @@ export default class MoviePage extends React.Component {
 
   render() {
     const { movie, activeTab } = this.state
-    const { movies, moviesActions, auth, match } = this.props
+    const { match } = this.props
 
     return (
       <div className="movie-page">
-        <MovieHeader
-          movies={movies}
-          moviesActions={moviesActions}
-          auth={auth}
-          movie={movie}
-        />
+        <MovieHeader {...this.props} movie={movie} />
         <div className="movie-tabs w-100">
           <div className="container">
             <Nav tabs>
@@ -79,3 +75,5 @@ export default class MoviePage extends React.Component {
     )
   }
 }
+
+export default withAuth(MoviePage)

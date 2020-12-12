@@ -25,7 +25,7 @@ export const MovieHeader = (props) => {
     return starMovie
   }
 
-  const { movie, movies, moviesActions, auth } = props
+  const { movie, movies, moviesActions, auth, authActions } = props
   return (
     <div className="movie-header">
       <div className="movie-header__custom-bg text-right">
@@ -82,11 +82,15 @@ export const MovieHeader = (props) => {
                       <div
                         className="ml-4 movie-header__favourite cursor-pointer d-flex justify-content-center align-items-center rounded-circle"
                         onClick={() => {
-                          moviesActions.updateFavouriteMovies({
-                            account_id: auth.account_id,
-                            session_id: auth.session_id,
-                            media_id: movie.id,
-                          })
+                          if (auth.user) {
+                            moviesActions.updateFavouriteMovies({
+                              account_id: auth.account_id,
+                              session_id: auth.session_id,
+                              media_id: movie.id,
+                            })
+                          } else {
+                            authActions.toggleAuthFormModal(true)
+                          }
                         }}
                       >
                         {forEachFavouriteMoviesOrWatchlist(
@@ -101,11 +105,15 @@ export const MovieHeader = (props) => {
                       <div
                         className="ml-2 movie-header__watchlist cursor-pointer d-flex justify-content-center align-items-center rounded-circle"
                         onClick={() => {
-                          moviesActions.updateWatchlist({
-                            account_id: auth.account_id,
-                            session_id: auth.session_id,
-                            media_id: movie.id,
-                          })
+                          if (auth.user) {
+                            moviesActions.updateWatchlist({
+                              account_id: auth.account_id,
+                              session_id: auth.session_id,
+                              media_id: movie.id,
+                            })
+                          } else {
+                            authActions.toggleAuthFormModal(true)
+                          }
                         }}
                       >
                         {forEachFavouriteMoviesOrWatchlist(
