@@ -73,7 +73,7 @@ export default class MoviePage extends React.Component {
                   </div>
                   <div className="col-8 pl-0 text-left d-flex justify-content-center flex-column h-100">
                     <div className="movie-header__description">
-                      <h2 className="movie-header__title mb-1">
+                      <h2 className="movie-header__title mb-0">
                         {movie.title} ( {movie.original_title} )
                       </h2>
                       <p className="movie-header__tagline mb-1">

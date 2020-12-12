@@ -606,6 +606,11 @@ input.invalid {
 
 .movie-header .movie-header__title {
     color: whitesmoke;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .movie-header .movie-header__release {
