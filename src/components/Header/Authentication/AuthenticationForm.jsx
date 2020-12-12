@@ -43,7 +43,7 @@ class AuthenticationForm extends React.Component {
       })
       .then((data) => {
         cookies.set('session_id', data.session_id, {
-          path: '/',
+          path: '/kinopoisk/',
           maxAge: 2592000,
         })
         return CallApi.get('/account', {

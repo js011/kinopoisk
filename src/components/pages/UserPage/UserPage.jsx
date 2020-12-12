@@ -10,8 +10,8 @@ import {
 } from 'reactstrap'
 import classnames from 'classnames'
 import { withAuth } from '../../../hoc/WithAuth.jsx'
-import { FavouriteMoviesTab } from './Tabs/FavouriteMoviesTab.jsx'
-import { WatchlistTab } from './Tabs/WatchlistTab.jsx'
+import FavouriteMoviesTab from './Tabs/FavouriteMoviesTab.jsx'
+import WatchlistTab from './Tabs/WatchlistTab.jsx'
 
 class UserPage extends React.Component {
   constructor() {
@@ -27,7 +27,7 @@ class UserPage extends React.Component {
   }
 
   render() {
-    const { auth, movies, moviesActions } = this.props
+    const { auth, movies } = this.props
 
     const toggle = (tab) => {
       if (this.state.activeTab !== tab)
@@ -88,12 +88,7 @@ class UserPage extends React.Component {
               <Row>
                 <Col sm="12">
                   {movies.favouriteMovies.length > 0 ? (
-                    <FavouriteMoviesTab
-                      favouriteMovies={movies.favouriteMovies}
-                      watchlist={movies.watchlist}
-                      moviesActions={moviesActions}
-                      auth={auth}
-                    />
+                    <FavouriteMoviesTab />
                   ) : (
                     <p className="mt-4">У вас нет избранных фильмов...</p>
                   )}
@@ -104,12 +99,7 @@ class UserPage extends React.Component {
               <Row>
                 <Col sm="12">
                   {movies.watchlist.length > 0 ? (
-                    <WatchlistTab
-                      favouriteMovies={movies.favouriteMovies}
-                      watchlist={movies.watchlist}
-                      moviesActions={moviesActions}
-                      auth={auth}
-                    />
+                    <WatchlistTab />
                   ) : (
                     <p className="mt-4">
                       У вас нет выбранных фильмов для просмотра...

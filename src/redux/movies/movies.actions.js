@@ -8,7 +8,7 @@ export const fetchFavouriteMovies = ({ session_id, account_id }) => (
     type: types.FETCH_REQUEST_FAVOURITE_MOVIES,
   })
   CallApi.get(`/account/${account_id}/favorite/movies`, {
-    params: { session_id, language: 'ru-RU', },
+    params: { session_id, language: 'ru-RU' },
   })
     .then((favouriteMovies) => {
       dispatch({
@@ -29,7 +29,7 @@ export const fetchWatchlist = ({ session_id, account_id }) => (dispatch) => {
     type: types.FETCH_REQUEST_WATCHLIST,
   })
   CallApi.get(`/account/${account_id}/watchlist/movies`, {
-    params: { session_id, language: 'ru-RU', },
+    params: { session_id, language: 'ru-RU' },
   })
     .then((watchlist) => {
       dispatch({
@@ -71,14 +71,11 @@ export const updateFavouriteMovies = ({ account_id, session_id, media_id }) => (
     },
   })
     .then(() => {
-      dispatch({
-        type: types.UPDATE_SUCCESS_FAVOURITE_MOVIES,
-      })
       return CallApi.get(`/account/${account_id}/favorite/movies`, {
-        params: { session_id, language: 'ru-RU', },
+        params: { session_id, language: 'ru-RU' },
       }).then((favouriteMovies) => {
         dispatch({
-          type: types.FETCH_SUCCESS_FAVOURITE_MOVIES,
+          type: types.UPDATE_SUCCESS_FAVOURITE_MOVIES,
           payload: favouriteMovies,
         })
       })
@@ -112,14 +109,11 @@ export const updateWatchlist = ({ account_id, session_id, media_id }) => (
     },
   })
     .then(() => {
-      dispatch({
-        type: types.UPDATE_SUCCESS_WATCHLIST,
-      })
       return CallApi.get(`/account/${account_id}/watchlist/movies`, {
-        params: { session_id, language: 'ru-RU', },
+        params: { session_id, language: 'ru-RU' },
       }).then((watchlist) => {
         dispatch({
-          type: types.FETCH_SUCCESS_WATCHLIST,
+          type: types.UPDATE_SUCCESS_WATCHLIST,
           payload: watchlist,
         })
       })

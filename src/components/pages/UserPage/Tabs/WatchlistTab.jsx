@@ -2,8 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Star, StarBorder, Bookmark, BookmarkBorder } from '@material-ui/icons'
 import { months } from '../../../../data/months'
+import { withAuth } from '../../../../hoc/WithAuth.jsx'
 
-export const WatchlistTab = (props) => {
+const WatchlistTab = (props) => {
   const getMonthNameOnMonthNumber = (movie) => {
     return months.filter((month) => {
       return month.month === movie.release_date.substr(5, 2)
@@ -22,30 +23,11 @@ export const WatchlistTab = (props) => {
     return starMovie
   }
 
-  const updateWatchlist = (movie) => {
-    const { auth, moviesActions } = props
-
-    moviesActions.updateWatchlist({
-      account_id: auth.account_id,
-      session_id: auth.session_id,
-      media_id: movie.id,
-    })
-  }
-
-  const updateFavouriteMovies = (movie) => {
-    const { auth, moviesActions } = props
-
-    moviesActions.updateFavouriteMovies({
-      account_id: auth.account_id,
-      session_id: auth.session_id,
-      media_id: movie.id,
-    })
-  }
-
+  const { auth, moviesActions, movies } = props
   return (
     <div className="favourite-movies-tab">
       <div className="favourite-movies">
-        {props.watchlist.map((movie) => {
+        {movies.watchlist.map((movie) => {
           const releaseDate = `${movie.release_date.substr(8, 2)} ${
             getMonthNameOnMonthNumber(movie)[0].shortName
           } ${movie.release_date.substr(0, 4)}`
@@ -83,12 +65,16 @@ export const WatchlistTab = (props) => {
                   <div
                     className="favourite cursor-pointer"
                     onClick={() => {
-                      updateFavouriteMovies(movie)
+                      moviesActions.updateFavouriteMovies({
+                        account_id: auth.account_id,
+                        session_id: auth.session_id,
+                        media_id: movie.id,
+                      })
                     }}
                   >
                     <div className="icon">
                       {forEachFavouriteMoviesOrWatchlist(
-                        props.favouriteMovies,
+                        props.movies.favouriteMovies,
                         movie
                       ) ? (
                         <Star />
@@ -101,12 +87,16 @@ export const WatchlistTab = (props) => {
                   <div
                     className="watchlist cursor-pointer"
                     onClick={() => {
-                      updateWatchlist(movie)
+                      moviesActions.updateWatchlist({
+                        account_id: auth.account_id,
+                        session_id: auth.session_id,
+                        media_id: movie.id,
+                      })
                     }}
                   >
                     <div className="icon">
                       {forEachFavouriteMoviesOrWatchlist(
-                        props.watchlist,
+                        props.movies.watchlist,
                         movie
                       ) ? (
                         <Bookmark />
@@ -125,3 +115,5 @@ export const WatchlistTab = (props) => {
     </div>
   )
 }
+
+export default withAuth(WatchlistTab)

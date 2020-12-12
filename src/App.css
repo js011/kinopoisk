@@ -574,3 +574,52 @@ input.invalid {
     align-items: center;
     border: 1px solid;
 }
+
+.movie-header {
+    position: relative;
+    width: 100%;
+    height: 512px;
+}
+
+.movie-header .movie-header__custom-bg {
+    position: relative;
+    background-image: linear-gradient(to right, #24242c 20%, rgba(18.82%, 25.49%, 30.59%, 0.64) 100%);
+}
+
+.movie-header .movie-header__bg-img {
+    position: relative;
+    width: 80%;
+    z-index: -2;
+}
+
+.movie-header .movie-header__single-column {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+}
+
+.movie-header .movie-header__description {
+    width: 100%;
+    height: 435px;
+    color: white;
+}
+
+.movie-header .movie-header__title {
+    color: whitesmoke;
+}
+
+.movie-header .movie-header__release {
+    color: white;
+    font-size: 14px;
+}
+
+.movie-header .movie-header__rate,
+.movie-header__favourite,
+.movie-header__watchlist {
+    width: 47px;
+    height: 45px;
+    background: rgb(36 36 44 / 0.7);
+    font-size: 16px;
+    box-shadow: 1px 1px 10px #24242c;
+}

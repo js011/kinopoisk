@@ -49,24 +49,26 @@ export default class MoviesPage extends React.Component {
   render() {
     const { filters, page, total_pages } = this.state
     return (
-      <div className="row">
-        <div className="filters col-3">
-          <Filters
-            onChangeFilters={this.onChangeFilters}
-            filters={filters}
-            page={page}
-            onChangePage={this.onChangePage}
-            total_pages={total_pages}
-            resetFilters={this.resetFilters}
-          />
-        </div>
-        <div className="movies col-9">
-          <MoviesList
-            filters={filters}
-            page={page}
-            onChangePage={this.onChangePage}
-            onChangeTotalPages={this.onChangeTotalPages}
-          />
+      <div className="main container">
+        <div className="row">
+          <div className="filters col-3">
+            <Filters
+              onChangeFilters={this.onChangeFilters}
+              filters={filters}
+              page={page}
+              onChangePage={this.onChangePage}
+              total_pages={total_pages}
+              resetFilters={this.resetFilters}
+            />
+          </div>
+          <div className="movies col-9">
+            <MoviesList
+              filters={filters}
+              page={page}
+              onChangePage={this.onChangePage}
+              onChangeTotalPages={this.onChangeTotalPages}
+            />
+          </div>
         </div>
       </div>
     )
