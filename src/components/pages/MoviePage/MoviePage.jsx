@@ -44,7 +44,6 @@ export default class MoviePage extends React.Component {
   render() {
     const { movie } = this.state
     const { movies, moviesActions, auth } = this.props
-    console.log(movie)
 
     return (
       <div className="movie-page">
@@ -77,13 +76,10 @@ export default class MoviePage extends React.Component {
                       <h2 className="movie-header__title mb-1">
                         {movie.title} ( {movie.original_title} )
                       </h2>
-                      <p className="pl-1 movie-header__release mb-0">
-                        {movie.release_date} ·{' '}
-                        {this.forEachGenresCompaniesCountries(
-                          movie.genres
-                        ).join(', ')}
+                      <p className="movie-header__tagline mb-1">
+                        {movie.tagline}
                       </p>
-                      <div className="d-flex align-items-center mt-4 mb-4">
+                      <div className="d-flex align-items-center mt-3 mb-3">
                         <div className="movie-header__rate d-flex justify-content-center align-items-center rounded-circle">
                           {String(movie.vote_average).length === 1
                             ? `${movie.vote_average}.0`
@@ -134,6 +130,16 @@ export default class MoviePage extends React.Component {
                       <p className="mb-1">
                         <span className="font-weight-bold">Статус</span> -{' '}
                         {movie.status}
+                      </p>
+                      <p className="mb-1">
+                        <span className="font-weight-bold">Дата выхода</span> -{' '}
+                        {movie.release_date}
+                      </p>
+                      <p className="mb-1">
+                        <span className="font-weight-bold">Жанры</span> -{' '}
+                        {this.forEachGenresCompaniesCountries(
+                          movie.genres
+                        ).join(', ')}
                       </p>
                       <p className="mb-1">
                         <span className="font-weight-bold">Язык оригинала</span>{' '}
