@@ -86,7 +86,7 @@ class MovieItem extends React.PureComponent {
 
     return (
       <div className="movie-card">
-        <Link to={`/kinopoisk/movie/${movie.id}`}>
+        <Link to={`/kinopoisk/movie/${movie.id}/media/`}>
           <img
             className="movie-card__img"
             src={

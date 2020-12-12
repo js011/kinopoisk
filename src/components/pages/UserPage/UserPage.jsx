@@ -10,8 +10,8 @@ import {
 } from 'reactstrap'
 import classnames from 'classnames'
 import { withAuth } from '../../../hoc/WithAuth.jsx'
-import FavouriteMoviesTab from './Tabs/FavouriteMoviesTab.jsx'
-import WatchlistTab from './Tabs/WatchlistTab.jsx'
+import FavouriteMovies from './Tabs/FavouriteMovies.jsx'
+import Watchlist from './Tabs/Watchlist.jsx'
 
 class UserPage extends React.Component {
   constructor() {
@@ -88,7 +88,7 @@ class UserPage extends React.Component {
               <Row>
                 <Col sm="12">
                   {movies.favouriteMovies.length > 0 ? (
-                    <FavouriteMoviesTab />
+                    <FavouriteMovies />
                   ) : (
                     <p className="mt-4">У вас нет избранных фильмов...</p>
                   )}
@@ -99,7 +99,7 @@ class UserPage extends React.Component {
               <Row>
                 <Col sm="12">
                   {movies.watchlist.length > 0 ? (
-                    <WatchlistTab />
+                    <Watchlist />
                   ) : (
                     <p className="mt-4">
                       У вас нет выбранных фильмов для просмотра...

@@ -3,17 +3,11 @@ import SortBy from './SortBy.jsx'
 import Pagination from './Pagination.jsx'
 import PrimaryReleaseYear from './PrimaryReleaseYear.jsx'
 import Genres from './Genres/GenresContainer.jsx'
+import { withFilters } from '../../hoc/WithFilters.jsx'
 
 class Filters extends React.Component {
   render() {
-    const {
-      filters,
-      onChangeFilters,
-      page,
-      onChangePage,
-      total_pages,
-      resetFilters,
-    } = this.props
+    const { filters, filtersActions } = this.props
 
     return (
       <>
@@ -24,13 +18,13 @@ class Filters extends React.Component {
             </label>
             <SortBy
               sort_by={filters.sort_by}
-              onChangeFilters={onChangeFilters}
+              onChangeFilters={filtersActions.onChangeFilters}
             />
           </div>
           <Pagination
-            total_pages={total_pages}
-            onChangePage={onChangePage}
-            page={page}
+            total_pages={filters.total_pages}
+            onChangePage={filtersActions.onChangePage}
+            page={filters.page}
           />
           <div className="sort form-group mt-3">
             <label className="filters-label" htmlFor="sort_by">
@@ -38,14 +32,14 @@ class Filters extends React.Component {
             </label>
             <PrimaryReleaseYear
               primary_release_year={filters.primary_release_year}
-              onChangeFilters={onChangeFilters}
+              onChangeFilters={filtersActions.onChangeFilters}
             />
             <Genres
               with_genres={filters.with_genres}
-              onChangeFilters={onChangeFilters}
+              onChangeFilters={filtersActions.onChangeFilters}
             />
             <button
-              onClick={resetFilters}
+              onClick={filtersActions.resetFilters}
               className="btn btn-light col-12 mt-2"
               type="button"
               style={{ background: '#e2e6ea' }}
@@ -59,4 +53,4 @@ class Filters extends React.Component {
   }
 }
 
-export default Filters
+export default withFilters(Filters)

@@ -32,7 +32,8 @@ class App extends React.Component {
         <div className="header">
           <Header />
         </div>
-        <Route path="/kinopoisk/profile/:id" render={() => <UserPage />} />
+        <Route exact path="/kinopoisk/" component={MoviesPage} />
+        <Route path="/kinopoisk/profile/:id" component={UserPage} />
         <Route
           path="/kinopoisk/movie/:id"
           render={(params) => (
@@ -44,7 +45,6 @@ class App extends React.Component {
             />
           )}
         />
-        <Route exact path="/kinopoisk/" component={MoviesPage} />
         <div className="footer"></div>
       </BrowserRouter>
     )

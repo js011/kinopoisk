@@ -20,7 +20,14 @@ export default (Component) =>
     componentDidUpdate(p) {
       const { onChangePage, filters, page } = this.props
 
-      if (!_.isEqual(p.filters, filters)) {
+      if (
+        !_.isEqual(p.filters.sort_by, filters.sort_by) ||
+        !_.isEqual(
+          p.filters.primary_release_year,
+          filters.primary_release_year
+        ) ||
+        !_.isEqual(p.filters.with_genres, filters.with_genres)
+      ) {
         onChangePage(1)
         this.getMovies(filters)
       }
