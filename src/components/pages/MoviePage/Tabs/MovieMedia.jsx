@@ -53,7 +53,7 @@ export default class MovieMedia extends React.Component {
                 <div key={item.id} className="videos__item mr-2">
                   <h5 className="mb-2 text-max-1-line">{item.name}</h5>
                   <iframe
-                    title="JIU JITSU | Official Trailer [HD] | Paramount Movies"
+                    title={item.name}
                     width="550"
                     height="315"
                     src={`https://www.youtube.com/embed/${item.key}`}
