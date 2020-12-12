@@ -39,7 +39,9 @@ export default class MovieActors extends React.Component {
               />
               <div className="actors__description d-flex align-items-center justify-content-center flex-column">
                 <h5 className="mb-1">{actor.name}</h5>
-                <p className="mb-0 text-max-1-line">Роль - {actor.character}</p>
+                <p className="mb-0 text-max-1-line text-center pl-1 pr-1">
+                  Роль - {actor.character}
+                </p>
               </div>
             </div>
           )
