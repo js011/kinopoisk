@@ -23,15 +23,14 @@ export default class GenresContainer extends React.PureComponent {
     const { name, value } = e.target
     const { onChangeFilters, with_genres } = this.props
 
-    if (with_genres.indexOf(String(value)) === -1) {
-      onChangeFilters({
-        target: { name, value: [...with_genres, value] },
-      })
-    } else {
-      onChangeFilters({
-        target: { name, value: with_genres.filter((item) => item !== value) },
-      })
-    }
+    const updateGenres =
+      with_genres.indexOf(String(value)) === -1
+        ? { name, value: [...with_genres, value] }
+        : { name, value: with_genres.filter((item) => item !== value) }
+
+    onChangeFilters({
+      target: updateGenres,
+    })
   }
 
   render() {

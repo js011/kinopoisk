@@ -2,43 +2,64 @@ import React from 'react'
 import { Star, StarBorder, Bookmark, BookmarkBorder } from '@material-ui/icons'
 import { api_img_url } from '../../../utils/apies'
 
+const forEachGenresCompaniesCountries = (arr = []) => {
+  let resultArr = []
+
+  arr.forEach((item) => {
+    resultArr.push(item.name)
+  })
+
+  return resultArr
+}
+
+const isFavourite = (movies = [], movie = {}) => {
+  return movies.findIndex((m) => m.id === movie.id) !== -1
+}
+
+const getBackgropImage = (movie) => {
+  if (!movie.backdrop_path) {
+    return '/kinopoisk/images/not-found-backdrop.jpg'
+  }
+
+  const path = movie.belongs_to_collection
+    ? movie.belongs_to_collection.backdrop_path
+    : movie.backdrop_path
+
+  return `https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${path}`
+}
+
 export const MovieHeader = (props) => {
-  const forEachGenresCompaniesCountries = (arr = []) => {
-    let resultArr = []
-
-    arr.forEach((item) => {
-      resultArr.push(item.name)
-    })
-
-    return resultArr
-  }
-
-  const forEachFavouriteMoviesOrWatchlist = (moviesArr = [], movie = {}) => {
-    let starMovie = false
-
-    moviesArr.forEach((item) => {
-      if (item.id === movie.id) {
-        starMovie = true
-      }
-    })
-
-    return starMovie
-  }
-
   const { movie, movies, moviesActions, auth, authActions } = props
+
+  const favoriteHandleClick = () => {
+    if (auth.user) {
+      moviesActions.updateFavouriteMovies({
+        account_id: auth.account_id,
+        session_id: auth.session_id,
+        media_id: movie.id,
+      })
+    } else {
+      authActions.toggleAuthFormModal(true)
+    }
+  }
+
+  const watchlistHandleClick = () => {
+    if (auth.user) {
+      moviesActions.updateWatchlist({
+        account_id: auth.account_id,
+        session_id: auth.session_id,
+        media_id: movie.id,
+      })
+    } else {
+      authActions.toggleAuthFormModal(true)
+    }
+  }
+
   return (
     <div className="movie-header">
       <div className="movie-header__custom-bg text-right">
         <img
-          src={
-            movie.backdrop_path
-              ? `https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${
-                  movie.belongs_to_collection
-                    ? movie.belongs_to_collection.backdrop_path
-                    : movie.backdrop_path
-                }`
-              : '/kinopoisk/images/not-found-backdrop.jpg'
-          }
+          src={getBackgropImage(movie)}
           alt=""
           height="512"
           className="movie-header__bg-img"
@@ -81,22 +102,9 @@ export const MovieHeader = (props) => {
                     <div className="d-flex align-items-center">
                       <div
                         className="ml-4 movie-header__favourite cursor-pointer d-flex justify-content-center align-items-center rounded-circle"
-                        onClick={() => {
-                          if (auth.user) {
-                            moviesActions.updateFavouriteMovies({
-                              account_id: auth.account_id,
-                              session_id: auth.session_id,
-                              media_id: movie.id,
-                            })
-                          } else {
-                            authActions.toggleAuthFormModal(true)
-                          }
-                        }}
+                        onClick={favoriteHandleClick}
                       >
-                        {forEachFavouriteMoviesOrWatchlist(
-                          movies.favouriteMovies,
-                          movie
-                        ) ? (
+                        {isFavourite(movies.favouriteMovies, movie) ? (
                           <Star />
                         ) : (
                           <StarBorder />
@@ -104,22 +112,9 @@ export const MovieHeader = (props) => {
                       </div>
                       <div
                         className="ml-2 movie-header__watchlist cursor-pointer d-flex justify-content-center align-items-center rounded-circle"
-                        onClick={() => {
-                          if (auth.user) {
-                            moviesActions.updateWatchlist({
-                              account_id: auth.account_id,
-                              session_id: auth.session_id,
-                              media_id: movie.id,
-                            })
-                          } else {
-                            authActions.toggleAuthFormModal(true)
-                          }
-                        }}
+                        onClick={watchlistHandleClick}
                       >
-                        {forEachFavouriteMoviesOrWatchlist(
-                          movies.watchlist,
-                          movie
-                        ) ? (
+                        {isFavourite(movies.watchlist, movie) ? (
                           <Bookmark />
                         ) : (
                           <BookmarkBorder />

@@ -64,17 +64,10 @@ class MovieItem extends React.PureComponent {
     this.toogleMovieModal()
   }
 
-  forEachFavouriteMoviesOrWatchlist = (moviesArr) => {
+  isFavourite = (movies = []) => {
     const { movie } = this.props
-    let starMovie = false
 
-    moviesArr.forEach((item) => {
-      if (item.id === movie.id) {
-        starMovie = true
-      }
-    })
-
-    return starMovie
+    return movies.findIndex((m) => m.id === movie.id) !== -1
   }
 
   render() {
@@ -122,9 +115,7 @@ class MovieItem extends React.PureComponent {
                   className="favourite-movie settings-menuItem"
                   onClick={this.updateFavouriteMovies}
                 >
-                  {this.forEachFavouriteMoviesOrWatchlist(
-                    movies.favouriteMovies
-                  ) ? (
+                  {this.isFavourite(movies.favouriteMovies) ? (
                     <Star />
                   ) : (
                     <StarBorder />
@@ -135,7 +126,7 @@ class MovieItem extends React.PureComponent {
                   className="willWatch-movie settings-menuItem"
                   onClick={this.updateWatchlist}
                 >
-                  {this.forEachFavouriteMoviesOrWatchlist(movies.watchlist) ? (
+                  {this.isFavourite(movies.watchlist) ? (
                     <Bookmark />
                   ) : (
                     <BookmarkBorder />

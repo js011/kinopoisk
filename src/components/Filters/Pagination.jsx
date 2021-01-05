@@ -9,7 +9,7 @@ class Pagination extends React.Component {
         <button
           type="button"
           className="btn btn-light col-4"
-          onClick={onChangePage.bind(null, page - 1)}
+          onClick={() => onChangePage(page - 1)}
           disabled={page === 1}
         >
           Назад
@@ -18,7 +18,7 @@ class Pagination extends React.Component {
         <button
           type="button"
           className="btn btn-light col-4"
-          onClick={onChangePage.bind(null, page + 1)}
+          onClick={() => onChangePage(page + 1)}
           disabled={page === Number(total_pages)}
         >
           Вперед

@@ -17,42 +17,26 @@ export default (Component) =>
       this.getMovies(filters, page)
     }
 
-    componentDidUpdate(p) {
+    componentDidUpdate(prevProps) {
       const { onChangePage, filters, page } = this.props
 
       if (
-        !_.isEqual(p.filters.sort_by, filters.sort_by) ||
+        !_.isEqual(prevProps.filters.sort_by, filters.sort_by) ||
         !_.isEqual(
-          p.filters.primary_release_year,
+          prevProps.filters.primary_release_year,
           filters.primary_release_year
         ) ||
-        !_.isEqual(p.filters.with_genres, filters.with_genres)
+        !_.isEqual(prevProps.filters.with_genres, filters.with_genres)
       ) {
         onChangePage(1)
         this.getMovies(filters)
       }
 
-      if (p.page !== page) {
+      if (prevProps.page !== page) {
         this.getMovies(filters, page)
       }
     }
 
-    getSettingsMovies = (nameState, url) => {
-      const { session_id, account_id, page } = this.props
-      const apiParams = {
-        language: 'ru-RU',
-        session_id,
-        page,
-      }
-
-      return CallApi.get(`/account/${account_id}${url}`, {
-        params: apiParams,
-      }).then((data) => {
-        this.setState({
-          [nameState]: data.results,
-        })
-      })
-    }
 
     getMovies = (filters, page = 1) => {
       const { sort_by, primary_release_year, with_genres } = filters

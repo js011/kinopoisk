@@ -20,8 +20,6 @@ class App extends React.Component {
         session_id: auth.session_id,
         account_id: auth.account_id,
       })
-    } else {
-      authActions.toggleAuthFormModal(true)
     }
   }
 

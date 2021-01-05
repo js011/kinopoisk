@@ -1,16 +1,16 @@
 import React from 'react'
-import { primary_release_year } from '../../data/primary_release_year'
+
+const getYears = () => {
+  const currentYear = new Date().getFullYear()
+
+  return Array.from(new Array(70), (value, index) => currentYear - index)
+}
+
+const years = getYears()
 
 export default class PrimaryReleaseYear extends React.Component {
-  static defaultProps = {
-    primary_release_year_options: [...primary_release_year],
-  }
   render() {
-    const {
-      primary_release_year_options,
-      primary_release_year,
-      onChangeFilters,
-    } = this.props
+    const { primary_release_year, onChangeFilters } = this.props
 
     return (
       <>
@@ -27,9 +27,9 @@ export default class PrimaryReleaseYear extends React.Component {
           value={primary_release_year}
           onChange={onChangeFilters}
         >
-          {primary_release_year_options.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
+          {years.map((year) => (
+            <option key={year} value={year}>
+              {year}
             </option>
           ))}
         </select>
