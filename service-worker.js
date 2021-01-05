@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/kinopoisk/precache-manifest.58876855b80b9efa48094ec4cca4f204.js"
+  "/kinopoisk/precache-manifest.9d418cddfbff7370e1f2957682ac1d3a.js"
 );
 
 self.addEventListener('message', (event) => {
