@@ -40,12 +40,12 @@ class User extends React.Component {
                 <div className="dropdown__menu">
                   <div className="dropdown__menu-item user-name">
                     {user.name || user.username}
-                    <Link to={`/kinopoisk/profile/${user.id}`}>
+                    <Link to={`/profile/${user.id}`}>
                       <p className="user-name__sub-title">Смотреть профиль</p>
                     </Link>
                   </div>
                   <div className="dropdown__menu-item">
-                    <Link to={'/kinopoisk/'} onClick={this.handleLogOut}>
+                    <Link to={'/'} onClick={this.handleLogOut}>
                       Выйти
                     </Link>
                   </div>

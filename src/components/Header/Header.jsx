@@ -12,7 +12,7 @@ class Header extends React.Component {
         <div className="pt-2 pb-2 row col-12">
           <div className="title col-4">
             <p className="title__name">
-              <Link to={'/kinopoisk/'}>
+              <Link to={'/'}>
                 Kino<span className="title__sub-name">poisk</span>
               </Link>
               <span className="ml-2 with-TMDB-Api">

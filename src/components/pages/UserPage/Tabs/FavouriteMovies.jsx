@@ -49,7 +49,7 @@ const FavouriteMoviesTab = (props) => {
                   </div>
                   <div className="title">
                     <p className="movie-name">
-                      <Link to={`/kinopoisk/movie/${movie.id}/media/`}>
+                      <Link to={`/movie/${movie.id}/media/`}>
                         {movie.title}
                       </Link>
                     </p>

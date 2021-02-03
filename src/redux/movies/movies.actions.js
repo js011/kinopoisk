@@ -1,9 +1,7 @@
 import CallApi from '../../utils/apies'
 import * as types from './movies.types'
 
-export const fetchFavouriteMovies = ({ session_id, account_id }) => (
-  dispatch
-) => {
+export const fetchFavouriteMovies = (session_id, account_id) => (dispatch) => {
   dispatch({
     type: types.FETCH_REQUEST_FAVOURITE_MOVIES,
   })
@@ -24,7 +22,7 @@ export const fetchFavouriteMovies = ({ session_id, account_id }) => (
     })
 }
 
-export const fetchWatchlist = ({ session_id, account_id }) => (dispatch) => {
+export const fetchWatchlist = (session_id, account_id) => (dispatch) => {
   dispatch({
     type: types.FETCH_REQUEST_WATCHLIST,
   })

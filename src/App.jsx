@@ -1,41 +1,38 @@
-import React from 'react'
-import './App.css'
-import Header from './components/Header/Header.jsx'
+import React, { useEffect } from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import Header from './components/Header/Header.jsx'
 import MoviesPage from './components/pages/MoviesPage/MoviesPage.jsx'
 import MoviePage from './components/pages/MoviePage/MoviePage.jsx'
 import UserPage from './components/pages/UserPage/UserPage.jsx'
-import { withAuth } from './hoc/WithAuth.jsx'
+import { fetchAuth } from './redux/auth/auth.actions'
+import {
+  fetchFavouriteMovies,
+  fetchWatchlist,
+} from './redux/movies/movies.actions'
 
-class App extends React.Component {
-  componentDidMount() {
-    const { auth, authActions, moviesActions } = this.props
-    if (auth.session_id) {
-      authActions.fetchAuth(auth.session_id)
-      moviesActions.fetchFavouriteMovies({
-        session_id: auth.session_id,
-        account_id: auth.account_id,
-      })
-      moviesActions.fetchWatchlist({
-        session_id: auth.session_id,
-        account_id: auth.account_id,
-      })
+export const App = () => {
+  const session_id = useSelector((store) => store.auth.session_id)
+  const account_id = useSelector((store) => store.auth.account_id)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (session_id) {
+      dispatch(fetchAuth(session_id))
+      dispatch(fetchFavouriteMovies(session_id, account_id))
+      dispatch(fetchWatchlist(session_id, account_id))
     }
-  }
+  }, [])
 
-  render() {
-    return (
-      <BrowserRouter>
-        <div className="header">
-          <Header />
-        </div>
-        <Route exact path="/kinopoisk/" component={MoviesPage} />
-        <Route path="/kinopoisk/profile/:id" component={UserPage} />
-        <Route path="/kinopoisk/movie/:id" component={MoviePage} />
-        <div className="footer"></div>
-      </BrowserRouter>
-    )
-  }
+  return (
+    <BrowserRouter basename="/kinopoisk/">
+      <div className="header">
+        <Header />
+      </div>
+      <Route exact path="/" component={MoviesPage} />
+      <Route path="/profile/:id" component={UserPage} />
+      <Route path="/movie/:id" component={MoviePage} />
+      <div className="footer"></div>
+    </BrowserRouter>
+  )
 }
-
-export default withAuth(App)

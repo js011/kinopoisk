@@ -79,7 +79,7 @@ class MovieItem extends React.PureComponent {
 
     return (
       <div className="movie-card">
-        <Link to={`/kinopoisk/movie/${movie.id}/media/`}>
+        <Link to={`/movie/${movie.id}/media/`}>
           <img
             className="movie-card__img"
             src={
@@ -97,7 +97,7 @@ class MovieItem extends React.PureComponent {
               : movie.vote_average}
           </p>
           <p className="movie-card__desc__title">
-            <Link to={`/kinopoisk/movie/${movie.id}`}>{movie.title}</Link>
+            <Link to={`/movie/${movie.id}`}>{movie.title}</Link>
           </p>
           <p className="movie-card__desc__release-date">{releaseDate}</p>
         </div>
